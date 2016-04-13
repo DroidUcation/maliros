@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.maliros.fivethings.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:src="@drawable/coffee_five"
+        android:scaleType="centerCrop"
+        android:id="@+id/coffee_five_image"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        android:textSize="32sp"
+        android:textColor="#e5644134"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:background="#EEEEEE"
+        android:textAlignment="center"
+        android:padding="16dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:onClick="displayFacts"
+        android:background="@drawable/start"/>
+
+
+</LinearLayout>

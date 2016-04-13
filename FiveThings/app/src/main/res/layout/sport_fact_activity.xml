@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:src="@drawable/sport"
+        android:scaleType="centerCrop"
+        android:id="@+id/sport_image"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sport_fact_data"
+        style="@style/fact_data"
+        android:layout_below="@id/sport_image"
+        android:id="@+id/fact_data_text_view"/>
+
+    <ImageView
+        android:src="@drawable/coffee_owl"
+        style="@style/owl_coffee_image" />
+
+    <Button
+        style="@style/previous_button"
+        android:onClick="displayPreviousFact"/>
+
+</RelativeLayout>

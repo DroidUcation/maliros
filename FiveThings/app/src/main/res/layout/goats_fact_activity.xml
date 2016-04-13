@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/goat_ethiopia"
+        android:id="@+id/goat_ethiopia_image"
+        style="@style/fact_image" />
+
+    <TextView
+        android:id="@+id/fact_data_text_view"
+        android:layout_below="@id/goat_ethiopia_image"
+        android:text="@string/goats_fact_data"
+        style="@style/fact_data" />
+
+    <ImageView
+        android:src="@drawable/coffee_owl"
+        style="@style/owl_coffee_image" />
+
+    <Button
+        android:onClick="displayStartPage"
+        style="@style/previous_button" />
+
+    <Button
+        android:onClick="displayNextFact"
+        style="@style/next_button" />
+
+</RelativeLayout>
