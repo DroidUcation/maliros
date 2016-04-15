@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/goats_rtl_layout">
 
     <ImageView
         android:layout_width="match_parent"
@@ -18,14 +19,17 @@
 
     <ImageView
         android:src="@drawable/coffee_owl"
-        style="@style/owl_coffee_image" />
+        style="@style/owl_coffee_image"
+        android:id="@+id/goats_owl_coffee_img"/>
 
     <Button
         android:onClick="displayStartPage"
-        style="@style/previous_button" />
+        style="@style/previous_button"
+        android:id="@+id/goats_previous_btn"/>
 
     <Button
         android:onClick="displayNextFact"
-        style="@style/next_button" />
+        style="@style/next_button"
+        android:id="@+id/goats_next_btn"/>
 
 </RelativeLayout>

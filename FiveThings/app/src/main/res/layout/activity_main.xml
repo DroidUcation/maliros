@@ -24,14 +24,16 @@
         android:textStyle="bold"
         android:background="#EEEEEE"
         android:textAlignment="center"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        android:id="@+id/five_facts_text_view"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
         android:onClick="displayFacts"
-        android:background="@drawable/start"/>
+        android:background="@drawable/start"
+        android:id="@+id/start_btn"/>
 
 
 </LinearLayout>
