@@ -5,15 +5,12 @@
     android:id="@+id/sport_rtl_layout">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="@dimen/fact_img_big_height"
         android:src="@drawable/sport"
-        android:scaleType="centerCrop"
+        style="@style/fact_image"
         android:id="@+id/sport_image"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/sport_fact_data"
         style="@style/fact_data"
         android:layout_below="@id/sport_image"

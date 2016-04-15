@@ -5,15 +5,12 @@
     android:id="@+id/fruit_rtl_layout">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/fact_img_medium_height"
         android:src="@drawable/coffee_fruit"
         style="@style/fact_image"
         android:id="@+id/fruit_image"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/fruit_fact_data"
         style="@style/fact_data"
         android:layout_below="@id/fruit_image"

@@ -5,8 +5,7 @@
     android:id="@+id/goats_rtl_layout">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/fact_img_medium_height"
         android:src="@drawable/goat_ethiopia"
         android:id="@+id/goat_ethiopia_image"
         style="@style/fact_image" />

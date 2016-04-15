@@ -5,8 +5,7 @@
     android:id="@+id/arabic_rlt_layout">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="@dimen/fact_img_big_height"
         android:src="@drawable/arabic_coffee"
         style="@style/fact_image"
         android:id="@+id/arabic_image"/>

@@ -9,7 +9,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="@dimen/main_coffee_img_height"
         android:src="@drawable/coffee_five"
         android:scaleType="centerCrop"
         android:id="@+id/coffee_five_image"/>
@@ -18,22 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title"
-        android:textSize="32sp"
-        android:textColor="#e5644134"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:background="#EEEEEE"
+        style="@style/main_act_title"
         android:textAlignment="center"
-        android:padding="16dp"
         android:id="@+id/five_facts_text_view"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="@dimen/start_btn_margin"
         android:onClick="displayFacts"
         android:background="@drawable/start"
         android:id="@+id/start_btn"/>
-
 
 </LinearLayout>

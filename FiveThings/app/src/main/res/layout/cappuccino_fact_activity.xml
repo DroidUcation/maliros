@@ -5,15 +5,12 @@
     android:id="@+id/cappuccino_rlt_layout">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="@dimen/fact_img_big_height"
         android:src="@drawable/cappuccino_2"
         style="@style/fact_image"
         android:id="@+id/cappuccino_image"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/cappuccino_fact_data"
         style="@style/fact_data"
         android:layout_below="@id/cappuccino_image"
