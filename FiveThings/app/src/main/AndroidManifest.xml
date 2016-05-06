@@ -20,6 +20,11 @@
         <activity android:name=".CappuccinoFactActivity"></activity>
         <activity android:name=".FruitFactActivity"></activity>
         <activity android:name=".SportFactActivity"></activity>
+
+        <provider android:name=".contentproviders.FactsProvider"
+            android:authorities="com.maliros.fivethings.contentproviders.FactsProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

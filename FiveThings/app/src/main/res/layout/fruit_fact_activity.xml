@@ -6,20 +6,20 @@
 
     <ImageView
         android:layout_height="@dimen/fact_img_medium_height"
-        android:src="@drawable/coffee_fruit"
         style="@style/fact_image"
         android:id="@+id/fruit_image"/>
 
     <TextView
-        android:text="@string/fruit_fact_data"
         style="@style/fact_data"
         android:layout_below="@id/fruit_image"
-        android:id="@+id/fact_data_text_view"/>
+        android:id="@+id/fruit_fact_text_view"/>
 
     <ImageView
         android:src="@drawable/coffee_owl"
         style="@style/owl_coffee_image"
-        android:id="@+id/fruit_owl_coffee_img"/>
+        android:id="@+id/fruit_owl_coffee_img"
+        android:layout_below="@id/fruit_fact_text_view"
+        />
 
     <Button
         style="@style/previous_button"

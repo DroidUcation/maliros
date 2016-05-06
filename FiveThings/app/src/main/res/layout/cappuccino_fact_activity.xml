@@ -6,21 +6,21 @@
 
     <ImageView
         android:layout_height="@dimen/fact_img_big_height"
-        android:src="@drawable/cappuccino_2"
         style="@style/fact_image"
         android:id="@+id/cappuccino_image"/>
 
     <TextView
-        android:text="@string/cappuccino_fact_data"
         style="@style/fact_data"
         android:layout_below="@id/cappuccino_image"
-        android:id="@+id/fact_data_text_view"
+        android:id="@+id/cappuccino_fact_text_view"
         />
 
     <ImageView
         android:src="@drawable/coffee_owl"
         style="@style/owl_coffee_image"
-        android:id="@+id/cappuccino_owl_coffee_img"/>
+        android:id="@+id/cappuccino_owl_coffee_img"
+        android:layout_below="@id/cappuccino_fact_text_view"
+        />
 
     <Button
         style="@style/previous_button"

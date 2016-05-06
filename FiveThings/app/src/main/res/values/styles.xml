@@ -25,7 +25,6 @@
         <item name="android:layout_width">@dimen/owl_coffee_img_width</item>
         <item name="android:layout_height">@dimen/owl_coffee_img_height</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_below">@id/fact_data_text_view</item>
     </style>
 
     <style name="fact_image">

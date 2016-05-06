@@ -6,21 +6,21 @@
 
     <ImageView
         android:layout_height="@dimen/fact_img_big_height"
-        android:src="@drawable/arabic_coffee"
         style="@style/fact_image"
         android:id="@+id/arabic_image"/>
 
     <TextView
-        android:id="@+id/fact_data_text_view"
+        android:id="@+id/arabic_fact_text_view"
         android:layout_below="@id/arabic_image"
-        android:text="@string/arabic_fact_data"
         style="@style/fact_data"
         />
 
     <ImageView
         android:src="@drawable/coffee_owl"
         style="@style/owl_coffee_image"
-        android:id="@+id/arabic_owl_coffee_img"/>
+        android:id="@+id/arabic_owl_coffee_img"
+        android:layout_below="@id/arabic_fact_text_view"
+        />
 
     <Button
         style="@style/previous_button"
