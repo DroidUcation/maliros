@@ -25,6 +25,18 @@
             android:authorities="com.maliros.fivethings.contentproviders.FactsProvider"
             android:exported="false" />
 
+        <receiver android:name=".services.AlarmReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+        <service android:name="com.maliros.fivethings.services.DBService" android:enabled="true" android:exported="false"></service>
+        <service android:name="com.maliros.fivethings.services.DailyAlarmService" android:enabled="true" android:exported="false"></service>
+
     </application>
 
 </manifest>
