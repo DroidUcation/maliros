@@ -1,4 +1,4 @@
 # maliros
 
-An ugly basic DB and ContentProvider project.
-Checkout project and replace current five activities with one fragment...
+Wakeup alaram every min(u may change it to daily-with time count),
+insert facts to DB and show notification to user
