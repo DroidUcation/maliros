@@ -1,4 +1,4 @@
-package activities;
+package com.maliros.giftcard.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

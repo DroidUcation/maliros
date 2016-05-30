@@ -1,4 +1,4 @@
-package contentproviders;
+package com.maliros.giftcard.contentproviders;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
