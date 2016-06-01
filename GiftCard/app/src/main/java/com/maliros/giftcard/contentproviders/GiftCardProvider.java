@@ -15,6 +15,7 @@ import android.util.Log;
 import com.maliros.giftcard.dbhelpers.GCDatabaseContract;
 import com.maliros.giftcard.dbhelpers.GCDatabaseHelper;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
+import com.maliros.giftcard.dbhelpers.entries.StoreCardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreEntry;
 import com.maliros.giftcard.entities.Store;
 
@@ -31,6 +32,7 @@ public class GiftCardProvider extends ContentProvider {
     private static final int STORE_ID = 2;
     private static final int CARD_TYPE = 3;
     private static final int CARD_TYPE_ID = 4;
+    private static final int STORE_CARD_TYPE = 5;
 
     private SQLiteDatabase sqLiteDatabase;
     private GCDatabaseHelper gcDbHelper;
@@ -59,6 +61,7 @@ public class GiftCardProvider extends ContentProvider {
         matcher.addURI(content, GCDatabaseContract.PATH_STORE + "/#", STORE_ID);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD_TYPE, CARD_TYPE);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD_TYPE + "/#", CARD_TYPE_ID);
+        matcher.addURI(content, GCDatabaseContract.PATH_STORE_CARD_TYPE, STORE_CARD_TYPE);
         return matcher;
     }
 
@@ -85,6 +88,9 @@ public class GiftCardProvider extends ContentProvider {
                 selection = CardTypeEntry._ID + " = ?";
                 selectionArgs = new String[]{String.valueOf(_id)};
                 break;
+            case STORE_CARD_TYPE:
+                sqLiteQueryBuilder.setTables(StoreCardTypeEntry.STORE_CARD_TYPE_TBL);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -108,6 +114,8 @@ public class GiftCardProvider extends ContentProvider {
                 return CardTypeEntry.CONTENT_TYPE;
             case CARD_TYPE_ID:
                 return CardTypeEntry.CONTENT_ITEM_TYPE;
+            case STORE_CARD_TYPE:
+                return StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -147,6 +155,9 @@ public class GiftCardProvider extends ContentProvider {
             case CARD_TYPE_ID:
                 tableName = CardTypeEntry.CARD_TYPE_TBL;
                 break;
+            case STORE_CARD_TYPE:
+                tableName = StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -173,6 +184,9 @@ public class GiftCardProvider extends ContentProvider {
             case CARD_TYPE:
             case CARD_TYPE_ID:
                 tableName = CardTypeEntry.CARD_TYPE_TBL;
+                break;
+            case STORE_CARD_TYPE:
+                tableName = StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
+import com.maliros.giftcard.dbhelpers.entries.StoreCardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreEntry;
 
 /**
@@ -27,11 +28,18 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
             CardTypeEntry.NAME + " TEXT," +
             CardTypeEntry.FOR_SPECIFIC_STORE + " SMALLINT )";
 
+    private static final String SQL_CREATE_STORE_CARD_TYPE_TBL_SQL = "CREATE TABLE " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " ( " +
+            StoreCardTypeEntry.STORE_KEY + " INTEGER , " +
+            StoreCardTypeEntry.CARD_TYPE_KEY + " INTEGER )" ;
+
     private static final String SQL_DROP_STORE_TABLE =
             "DROP TABLE IF EXISTS " + StoreEntry.STORE_TBL;
 
     private static final String SQL_DROP_CARD_TYPE_TABLE =
             "DROP TABLE IF EXISTS " + CardTypeEntry.CARD_TYPE_TBL;
+
+    private static final String SQL_DROP_STORE_CARD_TYPE_TABLE =
+            "DROP TABLE IF EXISTS " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
 
     public GCDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -49,16 +57,21 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // create tables
         db.execSQL(SQL_CREATE_STORE_TBL_SQL);
         db.execSQL(SQL_CREATE_CARD_TYPE_TBL_SQL);
+        db.execSQL(SQL_CREATE_STORE_CARD_TYPE_TBL_SQL);
+        // init data
         insertStoresData(db);
         insertCardTypesData(db);
+        insertStoresCardTypesData(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DROP_STORE_TABLE);
         db.execSQL(SQL_DROP_CARD_TYPE_TABLE);
+        db.execSQL(SQL_DROP_STORE_CARD_TYPE_TABLE);
         onCreate(db);
     }
 
@@ -82,5 +95,15 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         values.put(CardTypeEntry.NAME, "Gift Card- Isracard");
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
+    }
+
+
+    private void insertStoresCardTypesData(SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        values.put(StoreCardTypeEntry.STORE_KEY, 1);
+        values.put(StoreCardTypeEntry.CARD_TYPE_KEY, 1);
+
+        // insert row
+        db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
     }
 }
