@@ -31,8 +31,11 @@ public class StoreEntry implements BaseColumns {
         return ContentUris.withAppendedId(CONTENT_URI, id);
     }
 
-<<<<<<< Updated upstream
+
 }
-=======
-}
->>>>>>> Stashed changes
+
+
+
+
+
+

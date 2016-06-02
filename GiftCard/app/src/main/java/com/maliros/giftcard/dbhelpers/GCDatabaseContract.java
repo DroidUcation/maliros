@@ -20,8 +20,6 @@ public class GCDatabaseContract {
     public static final String PATH_CARD_TYPE = "cardType";
     public static final String PATH_STORE_CARD_TYPE = "storeCardType";
 
-<<<<<<< Updated upstream
+
 }
-=======
-}
->>>>>>> Stashed changes
+

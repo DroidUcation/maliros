@@ -16,8 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
-=======
 
         <activity
             android:name=".activities.AddCardActivity"
@@ -51,15 +49,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activities.MainActivity" />
         </activity>
->>>>>>> Stashed changes
+
 
         <provider android:name=".contentproviders.GiftCardProvider"
             android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
             android:exported="false" />
 
-        <provider android:name=".contentproviders.GiftCardProvider"
-            android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
-            android:exported="false" />
 
 
     </application>

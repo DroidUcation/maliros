@@ -193,15 +193,14 @@ public class GiftCardProvider extends ContentProvider {
         }
         rows = db.update(tableName, values, selection, selectionArgs);
 
+
         // Because null could delete all rows:
         if (rows != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
         return rows;
+
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
+
