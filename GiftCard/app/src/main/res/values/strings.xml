@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">GiftCard</string>
     <string name="action_settings">Settings</string>
+    <string name="display_card">picture gift card</string>
+    <string name="prev">prev</string>
+    <string name="add_card_activity">Add Card Activity</string>
+    <string name="country_name">card_name</string>
+    <string name="photo_card">photo card</string>
+    <string-array name="type_spinner_elements">
+        <item>All</item>
+        <item>Coffee With Alcohol</item>
+        <item>Coffee With Milk</item>
+    </string-array>
 </resources>

@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_style">
+
+    <RelativeLayout
+        style="@style/base_style3"
+        tools:context=".MainActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            style="@style/base_style" />
+
+    </RelativeLayout>
+
+</LinearLayout>

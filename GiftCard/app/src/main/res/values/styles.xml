@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -17,4 +18,124 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="n_scroll_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="body_text_style">
+        <item name="android:textSize">@dimen/fifteen</item>
+        <item name="android:layout_marginLeft">@dimen/eight</item>
+        <item name="android:layout_marginRight">@dimen/eight</item>
+        <item name="android:layout_marginTop">@dimen/eight</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="view_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/four</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="content_header_style">
+        <item name="android:textSize">@dimen/twentyfour2</item>
+        <item name="android:paddingLeft">@dimen/eight</item>
+        <item name="android:paddingRight">@dimen/eight</item>
+        <item name="android:paddingTop">@dimen/eight</item>
+        <item name="android:paddingBottom">@dimen/twentyfour1</item>
+        <item name="android:layout_marginBottom">@dimen/eight</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="small_button_style">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:padding">@dimen/eight</item>
+    </style>
+
+    <style name="button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/zero</item>
+        <item name="android:layout_marginBottom">@dimen/four</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="space_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/zero</item>
+        <item name="android:layout_weight">0</item>
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2.5</item>
+    </style>
+
+    <style name="linearLayout_ct2">
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="linearLayout_ct1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:baselineAligned">false</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/eight</item>
+    </style>
+
+    <style name="base_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="base_style3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">@dimen/eight</item>
+    </style>
+
+    <style name="base_style2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="card_style">
+        <item name="android:layout_width">@dimen/eighty</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/sixteen</item>
+    </style>
+    <style name="tv_balance">
+        <item name="android:layout_width">match_parent</item>
+         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/four</item>
+        <item name="android:padding">@dimen/four</item>
+        <item name="android:textSize">@dimen/thirteensp</item>
+    </style>
+    <style name="tv_card_name">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/four</item>
+        <item name="android:padding">@dimen/eight</item>
+        <item name="android:textSize">@dimen/thirteensp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+    <style name="photo_card_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
 </resources>

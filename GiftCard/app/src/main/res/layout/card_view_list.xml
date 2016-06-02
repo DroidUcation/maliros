@@ -1,0 +1,28 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    style="@style/card_style"
+    card_view:cardCornerRadius="@dimen/eight"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/photo"
+            style="@style/photo_card_style"
+            android:contentDescription="@string/photo_card" />
+
+        <TextView
+            android:id="@+id/balance"
+            style="@style/tv_balance"
+            android:layout_below="@+id/photo" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/tv_card_name"
+            android:layout_below="@+id/balance" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

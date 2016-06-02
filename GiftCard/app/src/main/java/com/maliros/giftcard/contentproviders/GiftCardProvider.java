@@ -67,7 +67,7 @@ public class GiftCardProvider extends ContentProvider{
             case FACTS:
                 return "vnd.android.cursor.dir/vnd.com.maliros.fivethings.contentproviders.FactsProvider.facts";
             case FACT_ID:
-                return "vnd.android.cursor.item/vnd.com.maliros.fivethings.contentproviders.FactsProvider.facts";
+                return "vnd.android.cursor.card_view_list/vnd.com.maliros.fivethings.contentproviders.FactsProvider.facts";
 
         }
         return "";    }
