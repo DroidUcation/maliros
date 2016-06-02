@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.maliros.giftcard">
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.maliros.giftcard">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,39 +16,10 @@ package="com.maliros.giftcard">
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.AddCardActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.DisplayCardsActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.UpdateBalanceActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.SearchCardsActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
 
+        <provider android:name=".contentproviders.GiftCardProvider"
+            android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
+            android:exported="false" />
 
     </application>
 
