@@ -200,4 +200,8 @@ public class GiftCardProvider extends ContentProvider {
 
         return rows;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

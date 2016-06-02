@@ -16,10 +16,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< Updated upstream
+=======
+
+        <activity
+            android:name=".activities.AddCardActivity"
+            android:label="@string/add_card_activity"
+            android:parentActivityName="activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.DisplayCardsActivity"
+            android:label="@string/add_card_activity"
+            android:parentActivityName="activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.UpdateBalanceActivity"
+            android:label="@string/add_card_activity"
+            android:parentActivityName="activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SearchCardsActivity"
+            android:label="@string/add_card_activity"
+            android:parentActivityName="activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="activities.MainActivity" />
+        </activity>
+>>>>>>> Stashed changes
 
         <provider android:name=".contentproviders.GiftCardProvider"
             android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
             android:exported="false" />
+
+        <provider android:name=".contentproviders.GiftCardProvider"
+            android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
+            android:exported="false" />
+
 
     </application>
 
