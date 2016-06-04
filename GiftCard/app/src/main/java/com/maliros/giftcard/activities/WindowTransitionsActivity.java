@@ -1,3 +1,4 @@
+/*
 package com.maliros.giftcard.activities;
 
 import android.app.ActivityOptions;
@@ -36,3 +37,4 @@ public class WindowTransitionsActivity extends BaseActivity {
     }
 
 }
+*/
