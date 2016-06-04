@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.activities.AddCardActivity;
 
-import butterknife.OnClick;
-
 public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView name;
     public TextView balance;
@@ -25,7 +23,7 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View
     }
 
 
-    @OnClick(R.id.text_fade_fast)
+   // @OnClick(R.id.text_fade_fast)
     @Override
     public void onClick(View view) {
         Intent itemIntent = new Intent(view.getContext(), AddCardActivity.class);
