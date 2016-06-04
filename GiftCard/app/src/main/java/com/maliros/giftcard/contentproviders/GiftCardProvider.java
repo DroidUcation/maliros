@@ -14,9 +14,11 @@ import android.util.Log;
 
 import com.maliros.giftcard.dbhelpers.GCDatabaseContract;
 import com.maliros.giftcard.dbhelpers.GCDatabaseHelper;
+import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreCardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreEntry;
+import com.maliros.giftcard.dbhelpers.entries.UserEntry;
 import com.maliros.giftcard.entities.Store;
 
 import static com.maliros.giftcard.dbhelpers.entries.StoreEntry.IS_CHAIN_STORE;
@@ -33,6 +35,10 @@ public class GiftCardProvider extends ContentProvider {
     private static final int CARD_TYPE = 3;
     private static final int CARD_TYPE_ID = 4;
     private static final int STORE_CARD_TYPE = 5;
+    private static final int USER = 6;
+    private static final int USER_ID = 7;
+    private static final int CARD = 8;
+    private static final int CARD_ID = 9;
 
     private SQLiteDatabase sqLiteDatabase;
     private GCDatabaseHelper gcDbHelper;
@@ -62,6 +68,10 @@ public class GiftCardProvider extends ContentProvider {
         matcher.addURI(content, GCDatabaseContract.PATH_CARD_TYPE, CARD_TYPE);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD_TYPE + "/#", CARD_TYPE_ID);
         matcher.addURI(content, GCDatabaseContract.PATH_STORE_CARD_TYPE, STORE_CARD_TYPE);
+        matcher.addURI(content, GCDatabaseContract.PATH_USER, USER);
+        matcher.addURI(content, GCDatabaseContract.PATH_USER + "/#", USER_ID);
+        matcher.addURI(content, GCDatabaseContract.PATH_CARD, CARD);
+        matcher.addURI(content, GCDatabaseContract.PATH_CARD + "/#", CARD_ID);
         return matcher;
     }
 
@@ -91,6 +101,20 @@ public class GiftCardProvider extends ContentProvider {
             case STORE_CARD_TYPE:
                 sqLiteQueryBuilder.setTables(StoreCardTypeEntry.STORE_CARD_TYPE_TBL);
                 break;
+            case USER_ID:
+                _id = ContentUris.parseId(uri);
+                selection = UserEntry._ID + " = ?";
+                selectionArgs = new String[]{String.valueOf(_id)};
+            case USER:
+                sqLiteQueryBuilder.setTables(UserEntry.USER_TBL);
+                break;
+            case CARD_ID:
+                _id = ContentUris.parseId(uri);
+                selection = CardEntry._ID + " = ?";
+                selectionArgs = new String[]{String.valueOf(_id)};
+            case CARD:
+                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -115,7 +139,15 @@ public class GiftCardProvider extends ContentProvider {
             case CARD_TYPE_ID:
                 return CardTypeEntry.CONTENT_ITEM_TYPE;
             case STORE_CARD_TYPE:
-                return StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
+                return StoreCardTypeEntry.CONTENT_TYPE;
+            case USER:
+                return UserEntry.CONTENT_TYPE;
+            case USER_ID:
+                return UserEntry.CONTENT_ITEM_TYPE;
+            case CARD:
+                return CardEntry.CONTENT_TYPE;
+            case CARD_ID:
+                return CardEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -145,22 +177,7 @@ public class GiftCardProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
         int rows; // Number of rows effected
-        String tableName;
-        switch (sUriMatcher.match(uri)) {
-            case STORE:
-            case STORE_ID:
-                tableName = StoreEntry.STORE_TBL;
-                break;
-            case CARD_TYPE:
-            case CARD_TYPE_ID:
-                tableName = CardTypeEntry.CARD_TYPE_TBL;
-                break;
-            case STORE_CARD_TYPE:
-                tableName = StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
-                break;
-            default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
-        }
+        String tableName = getTableName(uri);
         rows = db.delete(tableName, selection, selectionArgs);
 
         // Because null could delete all rows:
@@ -171,10 +188,7 @@ public class GiftCardProvider extends ContentProvider {
         return rows;
     }
 
-    @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
-        int rows; // Number of rows effected
+    private String getTableName(Uri uri){
         String tableName;
         switch (sUriMatcher.match(uri)) {
             case STORE:
@@ -188,11 +202,26 @@ public class GiftCardProvider extends ContentProvider {
             case STORE_CARD_TYPE:
                 tableName = StoreCardTypeEntry.STORE_CARD_TYPE_TBL;
                 break;
+            case USER:
+            case USER_ID:
+                tableName = UserEntry.USER_TBL;
+                break;
+            case CARD:
+            case CARD_ID:
+                tableName = CardEntry.CARD_TBL;
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
-        rows = db.update(tableName, values, selection, selectionArgs);
+        return tableName;
+    }
 
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
+        int rows; // Number of rows effected
+        String tableName = getTableName(uri);
+        rows = db.update(tableName, values, selection, selectionArgs);
 
         // Because null could delete all rows:
         if (rows != 0) {
