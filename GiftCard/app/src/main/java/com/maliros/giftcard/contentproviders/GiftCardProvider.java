@@ -156,6 +156,17 @@ public class GiftCardProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
+        String tableName = getTableName(uri);
+        long row = db.insert(tableName, "", values);
+        // If record is added successfully
+        if(row > 0) {
+            Uri newUri = ContentUris.withAppendedId(uri, row);
+            getContext().getContentResolver().notifyChange(newUri, null);
+            Log.d("**successful insert!!! ", tableName);
+            return newUri;
+        }
+        Log.d("*****B-A-D insert!!! ", tableName);
         return null;
     }
 
