@@ -21,6 +21,9 @@ import com.maliros.giftcard.dbhelpers.entries.StoreEntry;
 import com.maliros.giftcard.dbhelpers.entries.UserEntry;
 import com.maliros.giftcard.entities.Store;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.maliros.giftcard.dbhelpers.entries.StoreEntry.IS_CHAIN_STORE;
 import static com.maliros.giftcard.dbhelpers.entries.StoreEntry.NAME;
 import static com.maliros.giftcard.dbhelpers.entries.StoreEntry.STORE_TBL;
@@ -39,11 +42,13 @@ public class GiftCardProvider extends ContentProvider {
     private static final int USER_ID = 7;
     private static final int CARD = 8;
     private static final int CARD_ID = 9;
+    private static final int CARD_AND_CARD_TYPE = 10;
 
     private SQLiteDatabase sqLiteDatabase;
     private GCDatabaseHelper gcDbHelper;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
+    private static final Map<String, String> storeNameCardProjectionsMap = buildStoreCardProjMap();
 
     @Override
     public boolean onCreate() {
@@ -53,6 +58,14 @@ public class GiftCardProvider extends ContentProvider {
         sqLiteDatabase = gcDbHelper.getWritableDatabase();
         gcDbHelper.onUpgrade(sqLiteDatabase, 1, 2); // call on upgrade for recreating DB TODO: impl a better solution
         return (sqLiteDatabase != null);
+    }
+
+    private static Map<String,String> buildStoreCardProjMap() {
+        Map<String, String> projectionsMap = new HashMap<>();
+        projectionsMap.put(StoreEntry.NAME, StoreEntry.FULL_NAME_ALIAS);
+        projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
+        projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
+        return projectionsMap;
     }
 
     /**
@@ -72,6 +85,7 @@ public class GiftCardProvider extends ContentProvider {
         matcher.addURI(content, GCDatabaseContract.PATH_USER + "/#", USER_ID);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD, CARD);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD + "/#", CARD_ID);
+        matcher.addURI(content, GCDatabaseContract.PATH_CARD_JOIN_CARD_TYPE, CARD_AND_CARD_TYPE);
         return matcher;
     }
 
@@ -114,6 +128,15 @@ public class GiftCardProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(_id)};
             case CARD:
                 sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL);
+                break;
+            case CARD_AND_CARD_TYPE: // join card, cardType, store and cardTypeStore tables
+                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
+                        + " ON c." + CardEntry.CARD_TYPE_KEY + " = ct." + CardTypeEntry.KEY
+                        + " INNER JOIN " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " as sct"
+                        + " ON sct." + StoreCardTypeEntry.CARD_TYPE_KEY + " = ct." + CardTypeEntry.KEY
+                        + " INNER JOIN " + StoreEntry.STORE_TBL + " as s"
+                        + " ON s." + StoreEntry.KEY + " = sct." + StoreCardTypeEntry.STORE_KEY);
+                sqLiteQueryBuilder.setProjectionMap(storeNameCardProjectionsMap);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -160,7 +183,7 @@ public class GiftCardProvider extends ContentProvider {
         String tableName = getTableName(uri);
         long row = db.insert(tableName, "", values);
         // If record is added successfully
-        if(row > 0) {
+        if (row > 0) {
             Uri newUri = ContentUris.withAppendedId(uri, row);
             getContext().getContentResolver().notifyChange(newUri, null);
             Log.d("**successful insert!!! ", tableName);
@@ -172,10 +195,11 @@ public class GiftCardProvider extends ContentProvider {
 
     /**
      * insert specific store
+     *
      * @param store
      * @return
      */
-    public long insertStore(Uri uri, Store store){
+    public long insertStore(Uri uri, Store store) {
         final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME, store.getName());
@@ -199,7 +223,7 @@ public class GiftCardProvider extends ContentProvider {
         return rows;
     }
 
-    private String getTableName(Uri uri){
+    private String getTableName(Uri uri) {
         String tableName;
         switch (sUriMatcher.match(uri)) {
             case STORE:

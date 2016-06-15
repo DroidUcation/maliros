@@ -4,6 +4,8 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.maliros.giftcard.dbhelpers.GCDatabaseContract;
+
 import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.BASE_CONTENT_URI;
 import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_CARD_TYPE;
 
@@ -15,6 +17,9 @@ public class CardTypeEntry implements BaseColumns {
     public static final String KEY = "key";
     public static final String NAME = "name";
     public static final String FOR_SPECIFIC_STORE = "forSpecificStore";
+
+    // aliases
+    public static final String FULL_NAME_ALIAS = GCDatabaseContract.CARD_TYPE_ALIAS + "." + NAME;
 
     // Content URI represents the base location for the table
     public static final Uri CONTENT_URI =

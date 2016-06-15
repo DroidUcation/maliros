@@ -1,8 +1,12 @@
 package com.maliros.giftcard.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.recyclerviewgridview.ItemObject;
@@ -21,16 +25,41 @@ public class DisplayCardsActivity extends BaseActivity {
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
 
-
+        // cards view
         List<ItemObject> rowListItem = getAllItemList();
         lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
 
-        RecyclerView rView = (RecyclerView)findViewById(R.id.recycler_view);
+        RecyclerView rView = (RecyclerView) findViewById(R.id.recycler_view);
         rView.setHasFixedSize(true);
         rView.setLayoutManager(lLayout);
 
         RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(DisplayCardsActivity.this, rowListItem);
         rView.setAdapter(rcAdapter);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+        //return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_search) {
+            // Calls Custom Searchable Activity
+            Intent intent = new Intent(this, SearchCardsActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private List<ItemObject> getAllItemList() {
@@ -55,5 +84,6 @@ public class DisplayCardsActivity extends BaseActivity {
 
         return allItems;
     }
+
 
 }

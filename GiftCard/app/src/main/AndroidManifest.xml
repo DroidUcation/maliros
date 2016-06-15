@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maliros.giftcard">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.AddCardActivity"
             android:label="@string/add_card_activity"
@@ -44,12 +44,12 @@
         <activity
             android:name=".activities.SearchCardsActivity"
             android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
+            android:parentActivityName=".activities.DisplayCardsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
+                android:value=".activities.DisplayCardsActivity" />
         </activity>
-        <activity
+<!--        <activity
             android:name=".activities.WindowTransitionsActivity"
             android:label="@string/add_card_activity"
             android:parentActivityName="activities.MainActivity">
@@ -64,13 +64,19 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activities.MainActivity" />
+        </activity>-->
+
+        <activity android:name=".activities.SearchCardsResultActivity"
+            android:parentActivityName=".activities.SearchCardsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.SearchCardsActivity" />
         </activity>
 
-        <provider android:name=".contentproviders.GiftCardProvider"
+        <provider
+            android:name=".contentproviders.GiftCardProvider"
             android:authorities="com.maliros.giftcard.contentproviders.GiftCardProvider"
             android:exported="false" />
-
-
 
     </application>
 
