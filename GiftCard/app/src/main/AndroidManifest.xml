@@ -20,7 +20,7 @@
         <activity
             android:name=".activities.AddCardActivity"
             android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
+            android:parentActivityName="activities.DisplayCardsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activities.MainActivity" />
@@ -35,7 +35,7 @@
         </activity>
         <activity
             android:name=".activities.UpdateBalanceActivity"
-            android:label="@string/add_card_activity"
+            android:label="@string/update_balance_activity"
             android:parentActivityName="activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

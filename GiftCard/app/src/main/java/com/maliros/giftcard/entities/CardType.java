@@ -8,9 +8,10 @@ public class CardType {
     private String name;
     private boolean forSpecificStore;
 
-    public CardType(String name, boolean forSpecificStore) {
-        this.name = name;
+    public CardType(boolean forSpecificStore, int key, String name) {
         this.forSpecificStore = forSpecificStore;
+        this.key = key;
+        this.name = name;
     }
 
     public int getKey() {
@@ -35,5 +36,10 @@ public class CardType {
 
     public void setIsChainStore(boolean isChainStore) {
         this.forSpecificStore = isChainStore;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

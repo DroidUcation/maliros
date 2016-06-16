@@ -1,86 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/base_style"
-    tools:context=".CoffeeType">
+    style="@style/base_style">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:padding="@dimen/eight">
 
-        <LinearLayout
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+    <LinearLayout style="@style/linearLayout_ct1">
 
-        </LinearLayout>
-
+        <LinearLayout style="@style/linearLayout_ct2"></LinearLayout>
 
         <TextView
             android:id="@+id/tv_type_of_card"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text="zsssss" />
+            style="@style/spinner_style" />
 
         <Spinner
             android:id="@+id/type_spinner"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5" />
+            style="@style/spinner_style" />
 
-        <LinearLayout
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
-        </LinearLayout>
+        <LinearLayout style="@style/linearLayout_ct2"></LinearLayout>
+
 
     </LinearLayout>
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:text="Count" />
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:text="Date" />
+    <EditText
+        android:id="@+id/et_card_type"
+        style="@style/add_card_style"
+        android:text="Enter Card Type"
+        android:visibility="invisible" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Select a picture and upload" />
+    <EditText
+        android:id="@+id/et_count"
+        style="@style/add_card_style"
+        android:inputType="number"
+        android:text="Count" />
 
-        <ImageView
-            android:id="@android:id/icon"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+    <EditText
+        android:id="@+id/et_date"
+        style="@style/add_card_style"
+        android:inputType="datetime"
+        android:text="Date" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="pickPhoto"
-            android:text="Select a photo" />
+    <TextView
+        android:id="@+id/tv_select_picture"
+        style="@style/add_card_style"
+        android:text="Select a picture and upload" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="uploadPhoto"
-            android:text="Upload photo" />
+    <ImageView
+        android:id="@android:id/icon"
+        style="@style/add_card_style"
+        android:layout_weight="1" />
 
     <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/btn_select_photo"
+        style="@style/add_card_style"
+        android:onClick="pickPhoto"
+        android:text="Select a photo" />
+
+    <Button
+        android:id="@+id/btn_upload_photo"
+        style="@style/add_card_style"
+        android:onClick="uploadPhoto"
+        android:text="Upload photo" />
+
+    <Button
+        android:id="@+id/btn_add"
+        style="@style/add_card_style"
         android:onClick="AddCard"
         android:text="Add" />
 
