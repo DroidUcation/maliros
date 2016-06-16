@@ -18,4 +18,11 @@
     <color name="line_grey">#D7D7D7</color>
     <color name="black_87pc">#DD000000</color>
     <color name="scrim">#99323232</color>
+    <!--search autocomplete-->
+    <color name="transparency_color">#ccffffff</color>
+    <color name="primaryColor">#FAFAFA</color>
+    <color name="textPrimaryColor">#828282</color>
+    <color name="textHintColor">#FAFAFA</color>
+    <color name="rippleEffectMaskColor">#FAFAFA</color>
+    <color name="rippleEffectWaveColor">#bbbbbb</color>
 </resources>

@@ -23,7 +23,6 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "giftCard.db";
     public static final int DATABASE_VERSION = 1;
 
-
     /**
      * Sql create tables
      */
@@ -39,23 +38,23 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_STORE_CARD_TYPE_TBL = "CREATE TABLE " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " ( " +
             StoreCardTypeEntry.STORE_KEY + " INTEGER , " +
-            StoreCardTypeEntry.CARD_TYPE_KEY + " INTEGER )" ;
+            StoreCardTypeEntry.CARD_TYPE_KEY + " INTEGER )";
 
     private static final String SQL_CREATE_USER_TBL = "CREATE TABLE " + UserEntry.USER_TBL + " ( " +
             UserEntry.KEY + " INTEGER , " +
             UserEntry.FIRST_NAME + " TEXT , " +
             UserEntry.LAST_NAME + " TEXT , " +
             UserEntry.EMAIL + " TEXT , " +
-            UserEntry.PASSWORD + " TEXT )" ;
+            UserEntry.PASSWORD + " TEXT )";
 
     private static final String SQL_CREATE_CARD_TBL = "CREATE TABLE " + CardEntry.CARD_TBL + " ( " +
             CardEntry.KEY + " INTEGER , " +
-            CardEntry.CARD_TYPE + " INTEGER , " +
+            CardEntry.CARD_TYPE_KEY + " INTEGER , " +
             CardEntry.IS_FOR_UNIQUE_STORE + " SMALLINT , " +
             CardEntry.UNIQUE_STORE_NAME + " TEXT , " +
             CardEntry.BALANCE + " DOUBLE , " +//TODO: check type
             CardEntry.EXPIRATION_DATE + " DATETIME , " +
-            CardEntry.USER_KEY + " INTEGER )" ;
+            CardEntry.USER_KEY + " INTEGER )";
 
     /**
      * Sql drop tables
@@ -159,7 +158,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertCardsData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(CardEntry.CARD_TYPE, 1);
+        values.put(CardEntry.CARD_TYPE_KEY, 1);
         values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);
         values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
         values.put(CardEntry.BALANCE, 320);
