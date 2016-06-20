@@ -60,7 +60,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private EditText etCardType, etCount, etDate;
     Spinner typesSpinner;
     public static boolean isFirstFocus1 = false, isFirstFocus2 = false, isFirstFocus3 = false;
-    private List<CardType> typeSpinnerElements = new ArrayList<>();
+    static public List<CardType> typeSpinnerElements = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,7 +346,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     public void AddCard(View view) {
 
         ContentValues values = new ContentValues();
-        values.put(CardEntry.CARD_TYPE,((CardType)typesSpinner.getSelectedItem()).getKey());
+   //     values.put(CardTypeEntry.CARD_TYPE,((CardType)typesSpinner.getSelectedItem()).getKey());
        /* values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);*/
 //        values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
         values.put(CardEntry.BALANCE, String.valueOf(etCount.getText()));

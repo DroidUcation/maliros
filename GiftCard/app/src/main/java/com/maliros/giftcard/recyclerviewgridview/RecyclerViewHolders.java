@@ -3,9 +3,7 @@ package com.maliros.giftcard.recyclerviewgridview;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.maliros.giftcard.R;
@@ -16,18 +14,13 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View
     public TextView balance;
     public ImageView photo;
 
-    public Spinner typesSpinner;
-    TextView card;
-    TextView tvTypeOfCard;
-    private EditText etCountUsed;
-
     public RecyclerViewHolders(View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
         name = (TextView)itemView.findViewById(R.id.name);
         balance = (TextView)itemView.findViewById(R.id.balance);
         photo = (ImageView)itemView.findViewById(R.id.photo);
-        typesSpinner= (Spinner)itemView.findViewById(R.id.type_spinner);
+
     }
 
 

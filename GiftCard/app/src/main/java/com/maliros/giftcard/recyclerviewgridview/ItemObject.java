@@ -7,6 +7,11 @@ public class ItemObject {
     private String balance;
     private int photo;
 
+
+
+
+
+
     public ItemObject(String balance,String name, int photo) {
 
         this.balance = balance;

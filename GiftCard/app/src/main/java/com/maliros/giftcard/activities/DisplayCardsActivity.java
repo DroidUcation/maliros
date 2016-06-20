@@ -30,19 +30,17 @@ public class DisplayCardsActivity extends BaseActivity {
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
 
-
-//btn = (Button)findViewById(R.id.button1);
-
-        // cards view
-
         List<ItemObject> rowListItem = getAllItemList();
         lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
 
+        // 1. get a reference to recyclerView
         RecyclerView rView = (RecyclerView) findViewById(R.id.recycler_view);
         rView.setHasFixedSize(true);
+        // 2. set layoutManger
         rView.setLayoutManager(lLayout);
-//rView.setItemAnimator();
+        // 3. create an adapter
         RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(DisplayCardsActivity.this, rowListItem);
+        // 4. set adapter
         rView.setAdapter(rcAdapter);
 
     }
