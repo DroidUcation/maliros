@@ -112,12 +112,12 @@ public class UpdateBalanceActivity extends AppCompatActivity implements View.OnC
 
                 dialog.setContentView(R.layout.custom_dialog);
                 dialog.setTitle("Custom Alert Dialog");
-
+/*
                 final EditText editText = (EditText) dialog.findViewById(R.id.editText);
                 Button btnSave          = (Button) dialog.findViewById(R.id.save);
                 Button btnCancel        = (Button) dialog.findViewById(R.id.cancel);
                 dialog.show();
-                plusButtonAdapter.addItem(new ItemObject2(null, null, null));
+                plusButtonAdapter.addItem(new ItemObject2(null, null, null));*/
                 // notify change
                 recyclerView.getAdapter().notifyItemChanged(5);//TODO : COUNT OF CARD'S USER
             }
@@ -164,7 +164,7 @@ public class UpdateBalanceActivity extends AppCompatActivity implements View.OnC
             //holder.typesSpinner.setAdapter(spinner);
             holder.etCountUsed.setText((itemList.get(position).getCountUsed()));
             holder.tvTypeOfCard.setText((itemList.get(position).getTypeOfCard()));
-            holder.tvCount.setText((itemList.get(position).getTvCountUsed()));
+//            holder.tvCount.setText((itemList.get(position).getTvCountUsed()));
             holder.typesSpinner = spinner;
         }
 
@@ -202,7 +202,7 @@ public class UpdateBalanceActivity extends AppCompatActivity implements View.OnC
         List<ItemObject2> allItems = new ArrayList<ItemObject2>();
       /*  Log.d("michal:: tvTypeOfCard",tvTypeOfCard.getText().toString());
         Log.d("michal:: etCountUsed",etCountUsed.getText().toString());*/
-        allItems.add(new ItemObject2("Card", "Count used",etCountUsed.getText().toString()));
+//        allItems.add(new ItemObject2("Card", "Count used",etCountUsed.getText().toString()));
 
         return allItems;
     }
