@@ -6,6 +6,8 @@
     <string name="add_card_activity">Add Card Activity</string>
     <string name="country_name">card_name</string>
     <string name="photo_card">photo card</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="count">Count</string>
     <string-array name="type_spinner_elements">
         <item>All</item>
         <item>Coffee With Alcohol</item>

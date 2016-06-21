@@ -1,85 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/base_style"
-    tools:context=".CoffeeType">
+    tools:context=".activities.AddCardActivity">
 
-    <LinearLayout
+    <Spinner
+        android:id="@+id/type_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:padding="@dimen/eight">
+        android:spinnerMode="dropdown"
+        style="@style/spinner_style"/>
 
-        <LinearLayout
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/count"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        />
 
-        </LinearLayout>
+    <EditText
+        android:id="@+id/expiration_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/expiration_date"
+        android:layout_margin="8dp"
+        />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a picture and upload"
+        android:layout_margin="8dp"
+        />
 
-        <TextView
-            android:id="@+id/tv_type_of_card"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text="zsssss" />
-
-        <Spinner
-            android:id="@+id/type_spinner"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5" />
-
-        <LinearLayout
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-    </LinearLayout>
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:text="Count" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:text="Date" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Select a picture and upload" />
-
-        <ImageView
-            android:id="@android:id/icon"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="pickPhoto"
-            android:text="Select a photo" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="uploadPhoto"
-            android:text="Upload photo" />
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="pickPhoto"
+        android:text="Select a photo" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="uploadPhoto"
+        android:text="Upload photo" />
+
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="AddCard"
         android:text="Add" />

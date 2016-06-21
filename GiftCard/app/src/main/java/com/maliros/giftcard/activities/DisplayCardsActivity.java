@@ -65,13 +65,13 @@ public class DisplayCardsActivity extends BaseActivity {
     private List<ItemObject> getAllItemList() {
 
         List<ItemObject> allItems = new ArrayList<ItemObject>();
-        allItems.add(new ItemObject("200", "Gift Card 1", R.drawable.gift_card1));
-        allItems.add(new ItemObject("300", "Gift Card 2", R.drawable.gift_card1));
-        allItems.add(new ItemObject("100", "Gift Card 3", R.drawable.gift_card1));
+        allItems.add(new ItemObject("200", "Gift Card 1", R.drawable.tavhazav));
+        allItems.add(new ItemObject("300", "Gift Card 2", R.drawable.azriely));
+        allItems.add(new ItemObject("100", "Gift Card 3", R.drawable.dream_card));
         allItems.add(new ItemObject("100", "Gift Card 4", R.drawable.gift_card1));
-        allItems.add(new ItemObject("100", "Gift Card 5", R.drawable.gift_card1));
-        allItems.add(new ItemObject("100", "Gift Card 6", R.drawable.gift_card1));
-        allItems.add(new ItemObject("100", "Gift Card 7", R.drawable.gift_card1));
+        allItems.add(new ItemObject("100", "Gift Card 5", R.drawable.giftcard));
+        allItems.add(new ItemObject("100", "Gift Card 6", R.drawable.giftcard));
+        allItems.add(new ItemObject("100", "Gift Card 7", R.drawable.golf));
         allItems.add(new ItemObject("100", "Gift Card 8", R.drawable.gift_card1));
         allItems.add(new ItemObject("100", "Gift Card 9", R.drawable.gift_card1));
         allItems.add(new ItemObject("100", "Gift Card 10", R.drawable.gift_card1));

@@ -1,5 +1,6 @@
 package com.maliros.giftcard.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -10,14 +11,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.maliros.giftcard.R;
+import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -33,10 +39,12 @@ import org.apache.http.params.HttpParams;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.ButterKnife;
-public class AddCardActivity extends AppCompatActivity {
+
+public class AddCardActivity extends AppCompatActivity  implements View.OnClickListener {
 
     public static final String EXTRA_TRANSITION = "EXTRA_TRANSITION";
     public static final String TRANSITION_FADE_FAST = "FADE_FAST";
@@ -45,13 +53,25 @@ public class AddCardActivity extends AppCompatActivity {
     TextView tvTypeOfCard;
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
+
+    //UI References
+    private EditText expirationDate;
+    private DatePickerDialog expirationDatePickerDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
+
+        //TODO: ask michal
         imageView = (ImageView) findViewById(android.R.id.icon);
         ButterKnife.bind(this);
 
+        // init card type spinner
+        setCardTypesSpinner();
+
+        // init expiration date
+        setExpirationDate();
 
        /* String transition = getIntent().getStringExtra(EXTRA_TRANSITION);
         switch (transition) {
@@ -63,8 +83,27 @@ public class AddCardActivity extends AppCompatActivity {
                 break;
         }*/
 
+    }
+
+    private void setExpirationDate() {
+        expirationDate = (EditText) findViewById(R.id.expiration_date);
+        expirationDate.setInputType(InputType.TYPE_NULL);
+        expirationDate.requestFocus();
+
+        expirationDate.setOnClickListener(this);
+
+        Calendar newCalendar = Calendar.getInstance();
+        expirationDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                expirationDate.setText(DateUtil.DATE_FORMAT_DD_MM_YYYY.format(newDate.getTime()));
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void setCardTypesSpinner() {
         Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
-        tvTypeOfCard = (TextView) findViewById(R.id.tv_type_of_card);
         final ArrayAdapter<CharSequence> typesAdapter = ArrayAdapter.createFromResource(this,
                 R.array.type_spinner_elements, android.R.layout.simple_spinner_item);
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,7 +115,6 @@ public class AddCardActivity extends AppCompatActivity {
                                        int position, long id) {
                 typeIndex = position + 1;
                 typeAppend = parent.getItemAtPosition(position).toString();
-                tvTypeOfCard.setText(typeAppend);
             }
 
             @Override
@@ -84,10 +122,8 @@ public class AddCardActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-       /* Intent intent = new Intent(this, DisplayCardsActivity.class);
-        this.startActivity(intent);*/
-
     }
+
     public void pickPhoto(View view) {
         //TODO: launch the photo picker
         Intent intent = new Intent();
@@ -101,15 +137,14 @@ public class AddCardActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             Bitmap bitmap = getPath(data.getData());
             imageView.setImageBitmap(bitmap);
         }
     }
 
     private Bitmap getPath(Uri uri) {
-
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -151,7 +186,7 @@ public class AddCardActivity extends AppCompatActivity {
 
                     "http://192.168.1.107:8888/files/upload_file.php");
 
-            String fileName = String.format("File_%d.png",new Date().getTime());
+            String fileName = String.format("File_%d.png", new Date().getTime());
             ByteArrayBody bab = new ByteArrayBody(data, fileName);
 
             // File file= new File("/mnt/sdcard/forest.png");
@@ -201,10 +236,26 @@ public class AddCardActivity extends AppCompatActivity {
         }
 
     }
-   public void  AddCard(View view){
 
-
-        Intent intent = new Intent(this,DisplayCardsActivity.class);
+    public void AddCard(View view) {
+        // start cards display
+        Intent intent = new Intent(this, DisplayCardsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == expirationDate) {
+            expirationDatePickerDialog.show();
+        }
+    }
+
+
 }

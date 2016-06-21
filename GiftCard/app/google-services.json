@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1000060950319",
+    "firebase_url": "https://giftcard-512a1.firebaseio.com",
+    "project_id": "giftcard-512a1",
+    "storage_bucket": "giftcard-512a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000060950319:android:2817252d7ef89742",
+        "android_client_info": {
+          "package_name": "com.maliros.giftcard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000060950319-8p8khdiviqlbq1tnc0gr7dvnk64v91j5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maliros.giftcard",
+            "certificate_hash": "05B95CE6F617BE44F60E438CE4C99E675C8446A1"
+          }
+        },
+        {
+          "client_id": "1000060950319-fgmg96cq29inm14f9nm9o93mib84sblq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXjEjcOdtjrAfAVCQGqmbNSaizw4_e5vE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000060950319-fgmg96cq29inm14f9nm9o93mib84sblq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
