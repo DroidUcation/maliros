@@ -32,7 +32,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <ImageView
             android:id="@+id/photo"
             style="@style/photo_card_style"
-            android:contentDescription="@string/photo_card" />
+            android:contentDescription="@string/photo_card"
+            />
 
         <TextView
             android:id="@+id/balance"

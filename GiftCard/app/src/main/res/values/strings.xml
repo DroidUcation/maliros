@@ -6,6 +6,8 @@
     <string name="add_card_activity">Add Card Activity</string>
     <string name="country_name">card_name</string>
     <string name="photo_card">photo card</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="count">Count</string>
     <string name="add_card">Add Card</string>
     <string name="update_balance_card">Update Balance</string>
     <string name="update_balance_activity">Update Balance Activity</string>

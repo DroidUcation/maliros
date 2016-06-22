@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/base_style">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_style"
+    tools:context=".activities.AddCardActivity">
 
-
-    <LinearLayout style="@style/linearLayout_ct1">
-
-        <LinearLayout style="@style/linearLayout_ct2"></LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_type_of_card"
-            style="@style/spinner_style" />
-
-        <Spinner
-            android:id="@+id/type_spinner"
-            style="@style/spinner_style" />
-
-
-        <LinearLayout style="@style/linearLayout_ct2"></LinearLayout>
-
-
-    </LinearLayout>
+    <Spinner
+        android:id="@+id/type_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        style="@style/spinner_style"/>
 
     <EditText
-        android:id="@+id/et_card_type"
-        style="@style/add_card_style"
-        android:text="Enter Card Type"
-        android:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/et_count"
-        style="@style/add_card_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/count"
         android:inputType="number"
-        android:text="Count" />
+        android:layout_margin="8dp"
+        />
 
     <EditText
-        android:id="@+id/et_date"
-        style="@style/add_card_style"
-        android:inputType="datetime"
-        android:text="Date" />
+        android:id="@+id/expiration_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/expiration_date"
+        android:layout_margin="8dp"
+        />
 
     <TextView
-        android:id="@+id/tv_select_picture"
-        style="@style/add_card_style"
-        android:text="Select a picture and upload" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a picture and upload"
+        android:layout_margin="8dp"
+        />
 
     <ImageView
         android:id="@android:id/icon"
-        style="@style/add_card_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/btn_select_photo"
-        style="@style/add_card_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="pickPhoto"
         android:text="Select a photo" />
 
     <Button
-        android:id="@+id/btn_upload_photo"
-        style="@style/add_card_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="uploadPhoto"
         android:text="Upload photo" />
 
     <Button
-        android:id="@+id/btn_add"
-        style="@style/add_card_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="AddCard"
         android:text="Add" />
 
