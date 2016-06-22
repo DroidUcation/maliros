@@ -1,16 +1,22 @@
 package com.maliros.giftcard.activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 
 
 import com.maliros.giftcard.R;
@@ -21,15 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayCardsActivity extends BaseActivity {
-
+    String[] Company = {"Apple","Genpack","Microsoft","HP","HCL","Ericsson"};
+    private int typeIndex = 1;
+    private String typeAppend = "";
     private GridLayoutManager lLayout;
-    Button btn;
+    Button btnOpenPopup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
-
+        btnOpenPopup = (Button) findViewById(R.id.btn_update);
         List<ItemObject> rowListItem = getAllItemList();
         lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
 
@@ -97,8 +105,50 @@ public class DisplayCardsActivity extends BaseActivity {
         startActivity(intent);
     }
     public void  updateBalanceCard(View view){
-        Intent intent = new Intent(this,UpdateBalanceActivity.class);
-        startActivity(intent);
+        LayoutInflater layoutInflater =
+                (LayoutInflater)getBaseContext()
+                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
+        Button btnDismiss = (Button)popupView.findViewById(R.id.btn_cancel);
+        Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.popupspinner);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(DisplayCardsActivity.this,
+                        android.R.layout.simple_spinner_item, Company);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        popupSpinner.setAdapter(adapter);
+        popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                typeIndex = position + 1;
+                typeAppend = parent.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+        btnDismiss.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }});
+        popupWindow.showAsDropDown(btnOpenPopup, 250,500);
+        btnSave.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                popupWindow.dismiss();
+                Intent intent = new Intent(v.getContext(),UpdateBalanceActivity.class);
+                startActivity(intent);
+            }});
+
     }
 
 }

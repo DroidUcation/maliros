@@ -1,63 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/base_style"
-    tools:context="com.maliros.giftcard.activities.SearchCardsResultActivity">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/base_style">
+
+
 
        <TextView
             android:id="@+id/tv_card"
-            style="@style/linearLayout_ct2"
-
+                     style="@style/add_card_style"
             android:text="Card" />
-
-        <!--<TextView
-            android:id="@+id/tv_type_of_card"
-            style="@style/linearLayout_ct2"/>-->
-        <Spinner
-            android:id="@+id/type_spinner"
-            style="@style/linearLayout_ct2" />
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
         <TextView
             android:id="@+id/tv_count"
-            style="@style/linearLayout_ct2"
-
+            style="@style/add_card_style"
+            android:layout_alignBottom="@+id/tv_card"
             android:text="Count used" />
 
-        <EditText
-            android:id="@+id/et_count_used"
+        <View
+            android:id="@+id/view_id"
             style="@style/linearLayout_ct2"
-            android:text="Enter Card Type"
-            android:inputType="number"
-            android:gravity="right"/>
+            android:layout_height="4dp"
+            />
+<!--
+        <Button
+            android:id="@+id/add"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            style="?android:attr/buttonStyleSmall"
+            android:textSize="40sp"
+            android:text="@string/plus_btn"
+            android:background="@drawable/ripple"
 
-    </LinearLayout>
-   <!-- <View
-        android:id="@+id/view_id"
-        style="@style/view_style" />-->
-  <!--  <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:text="@string/plus_btn"
-        android:textSize="40sp"
-        android:background="@drawable/ripple"
-        android:id="@+id/add"
-        android:elevation="3dp"
-        android:paddingBottom="16dp"
-        android:fontFamily="sans-serif-light"
-        android:layout_gravity="right|bottom"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />-->
-</RelativeLayout>
+            />-->
+  <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="@string/plus_btn"
+            android:textSize="40sp"
+            android:background="@drawable/ripple"
+            android:id="@+id/add"
+            android:elevation="3dp"
+            android:paddingBottom="16dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_gravity="right|bottom"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+</LinearLayout>

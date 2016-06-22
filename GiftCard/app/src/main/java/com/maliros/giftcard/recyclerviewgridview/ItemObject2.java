@@ -3,16 +3,14 @@ package com.maliros.giftcard.recyclerviewgridview;
 public class ItemObject2 {
 
     private String typeOfCard;
-    private int countUsed;
+    private String countUsed;
 
-    public ItemObject2(String typeOfCard, int countUsed) {
+    public ItemObject2(String typeOfCard, String countUsed) {
         this.countUsed = countUsed;
         this.typeOfCard = typeOfCard;
     }
 
-    public int getCountUsed() {
-        return countUsed;
-    }
+
 
     public String getTypeOfCard() {
         return typeOfCard;
@@ -22,7 +20,7 @@ public class ItemObject2 {
         this.typeOfCard = typeOfCard;
     }
 
-    public void setCountUsed(int countUsed) {
+    public void setCountUsed(String countUsed) {
         this.countUsed = countUsed;
     }
 }
