@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.view.View;
+import android.widget.Button;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.recyclerviewgridview.ItemObject;
@@ -18,22 +23,24 @@ import java.util.List;
 public class DisplayCardsActivity extends BaseActivity {
 
     private GridLayoutManager lLayout;
-
+    Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
 
-        // cards view
         List<ItemObject> rowListItem = getAllItemList();
         lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
 
+        // 1. get a reference to recyclerView
         RecyclerView rView = (RecyclerView) findViewById(R.id.recycler_view);
         rView.setHasFixedSize(true);
+        // 2. set layoutManger
         rView.setLayoutManager(lLayout);
-
+        // 3. create an adapter
         RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(DisplayCardsActivity.this, rowListItem);
+        // 4. set adapter
         rView.setAdapter(rcAdapter);
 
     }
@@ -85,5 +92,13 @@ public class DisplayCardsActivity extends BaseActivity {
         return allItems;
     }
 
+    public void  addCard(View view){
+        Intent intent = new Intent(this,AddCardActivity.class);
+        startActivity(intent);
+    }
+    public void  updateBalanceCard(View view){
+        Intent intent = new Intent(this,UpdateBalanceActivity.class);
+        startActivity(intent);
+    }
 
 }

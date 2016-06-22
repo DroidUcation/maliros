@@ -43,4 +43,3 @@ dependencies {
     compile files('libs/apache-httpcomponents-httpclient.jar')
     compile files('libs/http-core-4.1.jar')
 }
-apply plugin: 'com.google.gms.google-services'

@@ -8,9 +8,14 @@
     <string name="photo_card">photo card</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="count">Count</string>
+    <string name="add_card">Add Card</string>
+    <string name="update_balance_card">Update Balance</string>
+    <string name="update_balance_activity">Update Balance Activity</string>
+    <string name="plus_btn">+</string>
     <string-array name="type_spinner_elements">
         <item>All</item>
         <item>Coffee With Alcohol</item>
         <item>Coffee With Milk</item>
+        <item>Other</item>
     </string-array>
 </resources>

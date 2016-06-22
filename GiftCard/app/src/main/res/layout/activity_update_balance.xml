@@ -1,12 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.maliros.giftcard.activities.UpdateBalanceActivity">
 
-</RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/base_style">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- <TextView
+             android:id="@+id/tv_card"
+             style="@style/linearLayout_ct2"
+
+             android:text="Card" />-->
+
+        <TextView
+            android:id="@+id/tv_type_of_card"
+            style="@style/linearLayout_ct2"
+            android:text="Card"/>
+
+        <Spinner
+            android:id="@+id/type_spinner"
+            style="@style/linearLayout_ct2" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/linearLayout_ct2"
+
+            android:text="Count used" />
+
+        <EditText
+            android:id="@+id/et_count_used"
+            style="@style/linearLayout_ct2"
+            android:gravity="right"
+            android:inputType="number"
+            android:text="Enter Card Type"
+            android:hint=" "/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:id="@+id/view_id"
+            style="@style/linearLayout_ct2"
+            android:layout_height="4dp"
+            />
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            style="?android:attr/buttonStyleSmall"
+            android:textSize="40sp"
+            android:text="@string/plus_btn"
+            android:background="@drawable/ripple"
+
+           />
+
+    </LinearLayout>
+  <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_count_used" >
+
+        <View
+            android:id="@+id/view_id"
+            style="@style/linearLayout_ct2"
+            android:layout_width="match_parent" />&ndash;&gt;
+
+        <Button
+            android:id="@+id/add"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+       android:layout_weight= "0"
+            android:background="@drawable/ripple"
+            android:text="@string/plus_btn"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textSize="40sp"
+            android:visibility="visible" />
+    </LinearLayout>-->
+    <!-- </RelativeLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        style="@style/base_style3"
+        />
+    <!-- <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+      &lt;!&ndash;<ListView
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:id="@+id/ListView" >
+         &lt;!&ndash; android:layout_below="@+id/view_id"&ndash;&gt;
+
+      </ListView>&ndash;&gt;
+      <Button
+          style="?android:attr/buttonStyleSmall"
+          android:layout_width="56dp"
+          android:layout_height="56dp"
+          android:text="@string/plus_btn"
+          android:textSize="40sp"
+          android:background="@drawable/ripple"
+          android:id="@+id/add"
+          android:elevation="3dp"
+          android:paddingBottom="16dp"
+          android:fontFamily="sans-serif-light"
+          android:layout_gravity="right|bottom"
+          android:layout_marginLeft="@dimen/activity_horizontal_margin"
+          android:layout_marginRight="@dimen/activity_horizontal_margin"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentEnd="true" />
+
+     </RelativeLayout>-->
+</LinearLayout>

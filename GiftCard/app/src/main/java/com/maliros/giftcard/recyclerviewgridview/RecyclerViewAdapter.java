@@ -16,6 +16,7 @@ import java.util.List;
         private Context context;
 
         public RecyclerViewAdapter(Context context, List<ItemObject> itemList) {
+
             this.itemList = itemList;
             this.context = context;
         }
@@ -32,7 +33,9 @@ import java.util.List;
         public void onBindViewHolder(RecyclerViewHolders holder, int position) {
             holder.name.setText(itemList.get(position).getName());
             holder.balance.setText(itemList.get(position).getBalance());
-            holder.photo.setImageResource(itemList.get(position).getPhoto());
+           holder.photo.setImageResource(itemList.get(position).getPhoto());
+
+
         }
 
         @Override

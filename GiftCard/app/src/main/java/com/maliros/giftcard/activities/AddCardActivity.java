@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.maliros.giftcard.R;
+import com.maliros.giftcard.entities.CardType;
 import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
@@ -38,9 +40,13 @@ import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -53,6 +59,7 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     TextView tvTypeOfCard;
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
+    static public List<CardType> typeSpinnerElements = new ArrayList<>();
 
     //UI References
     private EditText expirationDate;
@@ -138,9 +145,23 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Bitmap bitmap = getPath(data.getData());
+            Bitmap bitmap = null;
+            try {
+                bitmap = getBitmapFromUri(data.getData());//getPath(data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             imageView.setImageBitmap(bitmap);
         }
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
     }
 
     private Bitmap getPath(Uri uri) {
@@ -256,6 +277,5 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
             expirationDatePickerDialog.show();
         }
     }
-
 
 }
