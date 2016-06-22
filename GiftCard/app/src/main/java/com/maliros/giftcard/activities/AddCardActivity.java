@@ -21,7 +21,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.entities.CardType;
@@ -56,7 +55,6 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     public static final String TRANSITION_FADE_FAST = "FADE_FAST";
     private int typeIndex = 1;
     private String typeAppend = "";
-    TextView tvTypeOfCard;
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
     static public List<CardType> typeSpinnerElements = new ArrayList<>();
@@ -79,16 +77,6 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
 
         // init expiration date
         setExpirationDate();
-
-       /* String transition = getIntent().getStringExtra(EXTRA_TRANSITION);
-        switch (transition) {
-
-            case TRANSITION_FADE_FAST:
-                Transition transitionFadeFast =
-                        TransitionInflater.from(this).inflateTransition(R.transition.fade_fast);
-                getWindow().setEnterTransition(transitionFadeFast);
-                break;
-        }*/
 
     }
 
