@@ -20,9 +20,11 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
 import com.maliros.giftcard.R;
+import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.entities.CardType;
 import com.maliros.giftcard.utils.DateUtil;
 
@@ -104,6 +106,10 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typesSpinner.setAdapter(typesAdapter);
 
+        String[] projection = {CardTypeEntry.KEY, CardTypeEntry.NAME};
+        Cursor cardTypeCursor = getContentResolver().query(CardTypeEntry.CONTENT_URI, projection, null, null, null);
+        SimpleCursorAdapter cardTypeAdapter = new SimpleCursorAdapter(this, R.layout.support_simple_spinner_dropdown_item, cardTypeCursor, new String[]{CardTypeEntry.NAME}, new int[]{R.id.type_spinner});
+        typesSpinner.setAdapter(cardTypeAdapter);
         typesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
