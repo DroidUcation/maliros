@@ -49,7 +49,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_CARD_TBL = "CREATE TABLE " + CardEntry.CARD_TBL + " ( " +
             CardEntry._ID + " INTEGER , " +
-            CardEntry.CARD_TYPE_Id + " INTEGER , " +
+            CardEntry.CARD_TYPE_ID + " INTEGER , " +
             CardEntry.IS_FOR_UNIQUE_STORE + " SMALLINT , " +
             CardEntry.UNIQUE_STORE_NAME + " TEXT , " +
             CardEntry.BALANCE + " DOUBLE , " +//TODO: check type
@@ -158,7 +158,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertCardsData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(CardEntry.CARD_TYPE_Id, 1);
+        values.put(CardEntry.CARD_TYPE_ID, 1);
         values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);
         values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
         values.put(CardEntry.BALANCE, 320);

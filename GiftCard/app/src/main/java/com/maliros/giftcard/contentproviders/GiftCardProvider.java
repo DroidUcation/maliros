@@ -131,7 +131,7 @@ public class GiftCardProvider extends ContentProvider {
                 break;
             case CARD_AND_CARD_TYPE: // join card, cardType, store and cardTypeStore tables
                 sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
-                        + " ON c." + CardEntry.CARD_TYPE_Id + " = ct." + CardTypeEntry._ID
+                        + " ON c." + CardEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID
                         + " INNER JOIN " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " as sct"
                         + " ON sct." + StoreCardTypeEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID
                         + " INNER JOIN " + StoreEntry.STORE_TBL + " as s"
