@@ -16,7 +16,6 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -101,14 +100,14 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
 
     private void setCardTypesSpinner() {
         Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
-        final ArrayAdapter<CharSequence> typesAdapter = ArrayAdapter.createFromResource(this,
-                R.array.type_spinner_elements, android.R.layout.simple_spinner_item);
-        typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typesSpinner.setAdapter(typesAdapter);
-
-        String[] projection = {CardTypeEntry.KEY, CardTypeEntry.NAME};
+        // query _id and name
+        String[] projection = {CardTypeEntry._ID, CardTypeEntry.NAME};
         Cursor cardTypeCursor = getContentResolver().query(CardTypeEntry.CONTENT_URI, projection, null, null, null);
-        SimpleCursorAdapter cardTypeAdapter = new SimpleCursorAdapter(this, R.layout.support_simple_spinner_dropdown_item, cardTypeCursor, new String[]{CardTypeEntry.NAME}, new int[]{R.id.type_spinner});
+        // spinner fields
+        String[] from = {CardTypeEntry.NAME};
+        int[] to = {android.R.id.text1};
+        SimpleCursorAdapter cardTypeAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cardTypeCursor, from, to, 0);
+        cardTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typesSpinner.setAdapter(cardTypeAdapter);
         typesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

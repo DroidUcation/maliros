@@ -15,13 +15,12 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_CARD;
  */
 public class CardEntry implements BaseColumns {
     public static final String CARD_TBL = "card";
-    public static final String KEY = "key";
-    public static final String CARD_TYPE_KEY = "cardTypeKey";
+    public static final String CARD_TYPE_Id = "cardTypeId";
     public static final String IS_FOR_UNIQUE_STORE = "isForUniqueStore";
     public static final String UNIQUE_STORE_NAME = "uniqueStoreName";
     public static final String BALANCE = "balance";
     public static final String EXPIRATION_DATE = "expirationDate";
-    public static final String USER_KEY = "userKey";
+    public static final String USER_ID = "userId";
 
     // aliases
     public static final String FULL_BALANCE_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + BALANCE;

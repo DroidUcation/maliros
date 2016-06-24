@@ -14,7 +14,6 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_CARD_TYPE;
  */
 public class CardTypeEntry implements BaseColumns {
     public static final String CARD_TYPE_TBL = "cardType";
-    public static final String KEY = "key";
     public static final String NAME = "name";
     public static final String FOR_SPECIFIC_STORE = "forSpecificStore";
 
