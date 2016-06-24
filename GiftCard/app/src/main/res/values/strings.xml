@@ -12,6 +12,8 @@
     <string name="update_balance_card">Update Balance</string>
     <string name="update_balance_activity">Update Balance Activity</string>
     <string name="plus_btn">+</string>
+    <string name="btn_save">Save</string>
+    <string name="cancel">Cancel</string>
     <string-array name="type_spinner_elements">
         <item>All</item>
         <item>Coffee With Alcohol</item>

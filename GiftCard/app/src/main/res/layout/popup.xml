@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/base_style">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +12,8 @@
             android:text="Card"/>
 
         <Spinner
-            android:id="@+id/type_spinner"
+            android:id="@+id/popupspinner"
+            android:spinnerMode="dialog"
             style="@style/linearLayout_ct2" />
 
 
@@ -38,6 +37,28 @@
             android:text="Enter Card Type"
             android:hint=" "/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_count_used" >
+
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/linearLayout_ct2"
+            android:textSize="15dp"
+            android:text="@string/cancel"
+            android:onClick="updateBalanceCard"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/linearLayout_ct2"
+            android:textSize="15dp"
+            android:onClick="addCard"
+            android:text="@string/btn_save" />
     </LinearLayout>
 
 </LinearLayout>
