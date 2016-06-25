@@ -42,13 +42,15 @@ public class GiftCardProvider extends ContentProvider {
     private static final int USER_ID = 7;
     private static final int CARD = 8;
     private static final int CARD_ID = 9;
-    private static final int CARD_AND_CARD_TYPE = 10;
+    private static final int CARD_STORE_AND_CARD_TYPE = 10;
+    private static final int CARD_AND_CARD_TYPE = 11;
 
     private SQLiteDatabase sqLiteDatabase;
     private GCDatabaseHelper gcDbHelper;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final Map<String, String> storeNameCardProjectionsMap = buildStoreCardProjMap();
+    private static final Map<String, String> CardAndCardTypeProjMap = buildCardAndCardTypeProjMap();
 
     @Override
     public boolean onCreate() {
@@ -65,6 +67,14 @@ public class GiftCardProvider extends ContentProvider {
         projectionsMap.put(StoreEntry.NAME, StoreEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
+        return projectionsMap;
+    }
+
+    private static Map<String,String> buildCardAndCardTypeProjMap() {
+        Map<String, String> projectionsMap = new HashMap<>();
+        projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
+        projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
+        projectionsMap.put(CardTypeEntry.IMAGE, CardTypeEntry.FULL_IMAGE_ALIAS);
         return projectionsMap;
     }
 
@@ -85,6 +95,7 @@ public class GiftCardProvider extends ContentProvider {
         matcher.addURI(content, GCDatabaseContract.PATH_USER + "/#", USER_ID);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD, CARD);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD + "/#", CARD_ID);
+        matcher.addURI(content, GCDatabaseContract.PATH_CARD_JOIN_CARD_TYPE_STORE, CARD_STORE_AND_CARD_TYPE);
         matcher.addURI(content, GCDatabaseContract.PATH_CARD_JOIN_CARD_TYPE, CARD_AND_CARD_TYPE);
         return matcher;
     }
@@ -129,7 +140,7 @@ public class GiftCardProvider extends ContentProvider {
             case CARD:
                 sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL);
                 break;
-            case CARD_AND_CARD_TYPE: // join card, cardType, store and cardTypeStore tables
+            case CARD_STORE_AND_CARD_TYPE: // join card, cardType, store and cardTypeStore tables
                 sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
                         + " ON c." + CardEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID
                         + " INNER JOIN " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " as sct"
@@ -137,6 +148,11 @@ public class GiftCardProvider extends ContentProvider {
                         + " INNER JOIN " + StoreEntry.STORE_TBL + " as s"
                         + " ON s." + StoreEntry._ID + " = sct." + StoreCardTypeEntry.STORE_ID);
                 sqLiteQueryBuilder.setProjectionMap(storeNameCardProjectionsMap);
+                break;
+            case CARD_AND_CARD_TYPE:
+                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
+                        + " ON c." + CardEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID);
+                sqLiteQueryBuilder.setProjectionMap(CardAndCardTypeProjMap);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

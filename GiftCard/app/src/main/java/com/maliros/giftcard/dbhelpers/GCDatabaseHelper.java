@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.maliros.giftcard.R;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreCardTypeEntry;
@@ -34,6 +35,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_CARD_TYPE_TBL = "CREATE TABLE " + CardTypeEntry.CARD_TYPE_TBL + " ( " +
             CardTypeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CardTypeEntry.NAME + " TEXT," +
+            CardTypeEntry.IMAGE + " INTEGER," +
             CardTypeEntry.FOR_SPECIFIC_STORE + " SMALLINT )";
 
     private static final String SQL_CREATE_STORE_CARD_TYPE_TBL = "CREATE TABLE " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " ( " +
@@ -127,12 +129,15 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CardTypeEntry.NAME, "Dream Card");
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 0);
+        values.put(CardTypeEntry.IMAGE, R.drawable.dream_card);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
 
         // another row
         values.clear();
         values.put(CardTypeEntry.NAME, "Gift Card- Isracard");
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
+        values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
+        values.put(CardTypeEntry.IMAGE, R.drawable.giftcard1);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
     }
 
