@@ -19,24 +19,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-<<<<<<< HEAD
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-=======
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
->>>>>>> ffc79ae44a740d104173935e9b1bfde26f38ee0e
 import android.widget.Spinner;
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
+import com.maliros.giftcard.entities.CardType;
 import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
@@ -55,8 +50,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -68,12 +65,9 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
-<<<<<<< HEAD
     static public List<CardType> typeSpinnerElements = new ArrayList<>();
     Button btnOpenPopup;
-=======
 
->>>>>>> ffc79ae44a740d104173935e9b1bfde26f38ee0e
     //UI References
     private EditText expirationDateET;
     private DatePickerDialog expirationDatePickerDialog;
