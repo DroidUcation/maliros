@@ -14,12 +14,12 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_CARD_TYPE;
  */
 public class CardTypeEntry implements BaseColumns {
     public static final String CARD_TYPE_TBL = "cardType";
-    public static final String KEY = "key";
     public static final String NAME = "name";
     public static final String FOR_SPECIFIC_STORE = "forSpecificStore";
-
+    public static final String IMAGE = "image";
     // aliases
     public static final String FULL_NAME_ALIAS = GCDatabaseContract.CARD_TYPE_ALIAS + "." + NAME;
+    public static final String FULL_IMAGE_ALIAS = GCDatabaseContract.CARD_TYPE_ALIAS + "." + IMAGE;
 
     // Content URI represents the base location for the table
     public static final Uri CONTENT_URI =

@@ -16,6 +16,7 @@ public class GCDatabaseContract {
     public static final String PATH_STORE_CARD_TYPE = "storeCardType";
     public static final String PATH_CARD = "card";
     public static final String PATH_USER = "user";
+    public static final String PATH_CARD_JOIN_CARD_TYPE_STORE = "cardJoinCardTypeJoinStore";
     public static final String PATH_CARD_JOIN_CARD_TYPE = "cardJoinCardType";
 
     // tables aliases
@@ -31,6 +32,7 @@ public class GCDatabaseContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // uri of joined tables
+    public static final Uri CONTENT_URI_CARD_JOIN_CARD_TYPE_STORE = BASE_CONTENT_URI.buildUpon().appendPath(PATH_CARD_JOIN_CARD_TYPE_STORE).build();
     public static final Uri CONTENT_URI_CARD_JOIN_CARD_TYPE = BASE_CONTENT_URI.buildUpon().appendPath(PATH_CARD_JOIN_CARD_TYPE).build();
 
 }

@@ -13,8 +13,8 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_STORE_CARD_
  */
 public class StoreCardTypeEntry implements BaseColumns {
     public static final String STORE_CARD_TYPE_TBL = "storeCardType";
-    public static final String CARD_TYPE_KEY = "cardTypeKey";
-    public static final String STORE_KEY = "storeKey";
+    public static final String CARD_TYPE_ID = "cardTypeId";
+    public static final String STORE_ID = "storeId";
 
     // Content URI represents the base location for the table
     public static final Uri CONTENT_URI =

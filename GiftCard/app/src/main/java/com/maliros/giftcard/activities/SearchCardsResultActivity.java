@@ -45,7 +45,7 @@ public class SearchCardsResultActivity extends AppCompatActivity {
         String selection = StoreEntry.FULL_NAME_ALIAS + " = ?";
         Log.d("**", getIntent().getExtras().getString(StoreEntry.NAME));
         String[] selectionArgs = {getIntent().getExtras().getString(StoreEntry.NAME)};
-        return getContentResolver().query(GCDatabaseContract.CONTENT_URI_CARD_JOIN_CARD_TYPE, projection, selection, selectionArgs, null);
+        return getContentResolver().query(GCDatabaseContract.CONTENT_URI_CARD_JOIN_CARD_TYPE_STORE, projection, selection, selectionArgs, null);
     }
 
     class SearchResultAdapter extends CursorRecyclerViewAdapter<ViewHolder> {
@@ -74,11 +74,9 @@ public class SearchCardsResultActivity extends AppCompatActivity {
 
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
-
             viewHolder.nameViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
             viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)));
         }
-
     }
 
     // inner class to hold a reference to each item of RecyclerView

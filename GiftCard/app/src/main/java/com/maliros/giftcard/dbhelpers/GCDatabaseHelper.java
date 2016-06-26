@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.maliros.giftcard.R;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreCardTypeEntry;
@@ -27,34 +28,35 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
      * Sql create tables
      */
     private static final String SQL_CREATE_STORE_TBL = "CREATE TABLE " + StoreEntry.STORE_TBL + " ( " +
-            StoreEntry.KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            StoreEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             StoreEntry.NAME + " TEXT," +
             StoreEntry.IS_CHAIN_STORE + " SMALLINT )";
 
     private static final String SQL_CREATE_CARD_TYPE_TBL = "CREATE TABLE " + CardTypeEntry.CARD_TYPE_TBL + " ( " +
-            CardTypeEntry.KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CardTypeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CardTypeEntry.NAME + " TEXT," +
+            CardTypeEntry.IMAGE + " INTEGER," +
             CardTypeEntry.FOR_SPECIFIC_STORE + " SMALLINT )";
 
     private static final String SQL_CREATE_STORE_CARD_TYPE_TBL = "CREATE TABLE " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " ( " +
-            StoreCardTypeEntry.STORE_KEY + " INTEGER , " +
-            StoreCardTypeEntry.CARD_TYPE_KEY + " INTEGER )";
+            StoreCardTypeEntry.STORE_ID + " INTEGER , " +
+            StoreCardTypeEntry.CARD_TYPE_ID + " INTEGER )";
 
     private static final String SQL_CREATE_USER_TBL = "CREATE TABLE " + UserEntry.USER_TBL + " ( " +
-            UserEntry.KEY + " INTEGER , " +
+            UserEntry._ID + " INTEGER , " +
             UserEntry.FIRST_NAME + " TEXT , " +
             UserEntry.LAST_NAME + " TEXT , " +
             UserEntry.EMAIL + " TEXT , " +
             UserEntry.PASSWORD + " TEXT )";
 
     private static final String SQL_CREATE_CARD_TBL = "CREATE TABLE " + CardEntry.CARD_TBL + " ( " +
-            CardEntry.KEY + " INTEGER , " +
-            CardEntry.CARD_TYPE_KEY + " INTEGER , " +
+            CardEntry._ID + " INTEGER , " +
+            CardEntry.CARD_TYPE_ID + " INTEGER , " +
             CardEntry.IS_FOR_UNIQUE_STORE + " SMALLINT , " +
             CardEntry.UNIQUE_STORE_NAME + " TEXT , " +
             CardEntry.BALANCE + " DOUBLE , " +//TODO: check type
             CardEntry.EXPIRATION_DATE + " DATETIME , " +
-            CardEntry.USER_KEY + " INTEGER )";
+            CardEntry.USER_ID + " INTEGER )";
 
     /**
      * Sql drop tables
@@ -127,19 +129,22 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CardTypeEntry.NAME, "Dream Card");
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 0);
+        values.put(CardTypeEntry.IMAGE, R.drawable.dream_card);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
 
         // another row
         values.clear();
         values.put(CardTypeEntry.NAME, "Gift Card- Isracard");
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
+        values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
+        values.put(CardTypeEntry.IMAGE, R.drawable.giftcard1);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
     }
 
     private void insertStoresCardTypesData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(StoreCardTypeEntry.STORE_KEY, 1);
-        values.put(StoreCardTypeEntry.CARD_TYPE_KEY, 1);
+        values.put(StoreCardTypeEntry.STORE_ID, 1);
+        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 1);
 
         // insert row
         db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
@@ -158,12 +163,12 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertCardsData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(CardEntry.CARD_TYPE_KEY, 1);
+        values.put(CardEntry.CARD_TYPE_ID, 1);
         values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);
         values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
         values.put(CardEntry.BALANCE, 320);
         values.put(CardEntry.EXPIRATION_DATE, DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(new Date()));
-        values.put(CardEntry.USER_KEY, 1);
+        values.put(CardEntry.USER_ID, 1);
 
         // insert row
         db.insert(CardEntry.CARD_TBL, null, values);

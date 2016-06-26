@@ -2,6 +2,7 @@ package com.maliros.giftcard.activities;
 
 import android.app.ActionBar;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,16 +19,24 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+<<<<<<< HEAD
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+=======
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+>>>>>>> ffc79ae44a740d104173935e9b1bfde26f38ee0e
 import android.widget.Spinner;
 
 import com.maliros.giftcard.R;
-import com.maliros.giftcard.entities.CardType;
+import com.maliros.giftcard.dbhelpers.entries.CardEntry;
+import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
@@ -46,14 +55,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class AddCardActivity extends AppCompatActivity  implements View.OnClickListener {
+public class AddCardActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String EXTRA_TRANSITION = "EXTRA_TRANSITION";
     public static final String TRANSITION_FADE_FAST = "FADE_FAST";
@@ -61,10 +68,14 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
+<<<<<<< HEAD
     static public List<CardType> typeSpinnerElements = new ArrayList<>();
     Button btnOpenPopup;
+=======
+
+>>>>>>> ffc79ae44a740d104173935e9b1bfde26f38ee0e
     //UI References
-    private EditText expirationDate;
+    private EditText expirationDateET;
     private DatePickerDialog expirationDatePickerDialog;
 
     @Override
@@ -86,29 +97,40 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     }
 
     private void setExpirationDate() {
-        expirationDate = (EditText) findViewById(R.id.expiration_date);
-        expirationDate.setInputType(InputType.TYPE_NULL);
-        expirationDate.requestFocus();
+        expirationDateET = (EditText) findViewById(R.id.expiration_date);
+        expirationDateET.setInputType(InputType.TYPE_NULL);
+        expirationDateET.requestFocus();
 
-        expirationDate.setOnClickListener(this);
+        expirationDateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    expirationDatePickerDialog.show();
+            }
+        });
+//        expirationDateET.setOnClickListener(this);
 
         Calendar newCalendar = Calendar.getInstance();
         expirationDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
-                expirationDate.setText(DateUtil.DATE_FORMAT_DD_MM_YYYY.format(newDate.getTime()));
+                expirationDateET.setText(DateUtil.DATE_FORMAT_DD_MM_YYYY.format(newDate.getTime()));
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     private void setCardTypesSpinner() {
         Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
-        final ArrayAdapter<CharSequence> typesAdapter = ArrayAdapter.createFromResource(this,
-                R.array.type_spinner_elements, android.R.layout.simple_spinner_item);
-        typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typesSpinner.setAdapter(typesAdapter);
-
+        // query _id and name
+        String[] projection = {CardTypeEntry._ID, CardTypeEntry.NAME};
+        Cursor cardTypeCursor = getContentResolver().query(CardTypeEntry.CONTENT_URI, projection, null, null, null);
+        // spinner fields
+        String[] from = {CardTypeEntry.NAME};
+        int[] to = {android.R.id.text1};
+        SimpleCursorAdapter cardTypeAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cardTypeCursor, from, to, 0);
+        cardTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typesSpinner.setAdapter(cardTypeAdapter);
         typesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -290,17 +312,46 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
 
             // handle exception here
             e.printStackTrace();
-
-            // Log.e(e.getClass().getName(), e.getMessage());
-
         }
 
     }
 
     public void AddCard(View view) {
+        // card type
+        Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+        Cursor c = (Cursor) typesSpinner.getSelectedItem();
+        String cardTypeId = c.getString(c.getColumnIndex(CardTypeEntry._ID));
+        // balance
+        EditText balance = (EditText) findViewById(R.id.edt_view_balance);
+        // expiration date
+        String format = DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(getDateFromDatePicker(expirationDatePickerDialog.getDatePicker()));
+
+        // insert
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
+        contentValues.put(CardEntry.EXPIRATION_DATE, format);
+        contentValues.put(CardEntry.CARD_TYPE_ID, cardTypeId);
+        getContentResolver().insert(CardEntry.CONTENT_URI, contentValues);
+
         // start cards display
         Intent intent = new Intent(this, DisplayCardsActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     *
+     * @param datePicker
+     * @return a java.util.Date
+     */
+    public static java.util.Date getDateFromDatePicker(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime();
     }
 
     @Override
@@ -312,7 +363,7 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if(view == expirationDate) {
+        if (view == expirationDateET) {
             expirationDatePickerDialog.show();
         }
     }

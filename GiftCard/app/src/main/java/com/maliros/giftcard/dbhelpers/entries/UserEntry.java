@@ -12,7 +12,6 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_USER;
  */
 public class UserEntry implements BaseColumns {
     public static final String USER_TBL = "user";
-    public static final String KEY = "key";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "last_name";
     public static final String PASSWORD = "passWord";

@@ -10,36 +10,36 @@ import com.maliros.giftcard.R;
 
 import java.util.List;
 
-    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolders> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolders> {
 
-        private List<ItemObject> itemList;
-        private Context context;
+    private List<ItemObject> itemList;
+    private Context context;
 
-        public RecyclerViewAdapter(Context context, List<ItemObject> itemList) {
+    public RecyclerViewAdapter(Context context, List<ItemObject> itemList) {
 
-            this.itemList = itemList;
-            this.context = context;
-        }
-
-        @Override
-        public RecyclerViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
-
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_list, null);
-            RecyclerViewHolders rcv = new RecyclerViewHolders(layoutView);
-            return rcv;
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerViewHolders holder, int position) {
-            holder.name.setText(itemList.get(position).getName());
-            holder.balance.setText(itemList.get(position).getBalance());
-           holder.photo.setImageResource(itemList.get(position).getPhoto());
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return this.itemList.size();
-        }
+        this.itemList = itemList;
+        this.context = context;
     }
+
+    @Override
+    public RecyclerViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_list, null);
+        RecyclerViewHolders rcv = new RecyclerViewHolders(layoutView);
+        return rcv;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerViewHolders holder, int position) {
+        holder.name.setText(itemList.get(position).getName());
+        holder.balance.setText(itemList.get(position).getBalance());
+        holder.photo.setImageResource(itemList.get(position).getPhoto());
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.itemList.size();
+    }
+}

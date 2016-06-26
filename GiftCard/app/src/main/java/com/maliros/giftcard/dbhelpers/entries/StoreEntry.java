@@ -14,7 +14,6 @@ import static com.maliros.giftcard.dbhelpers.GCDatabaseContract.PATH_STORE;
  */
 public class StoreEntry implements BaseColumns {
     public static final String STORE_TBL = "store";
-    public static final String KEY = "key";
     public static final String NAME = "name";
     public static final String IS_CHAIN_STORE = "isForSpecificStore";
 
