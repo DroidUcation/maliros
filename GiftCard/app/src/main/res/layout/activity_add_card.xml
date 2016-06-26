@@ -25,8 +25,15 @@
         android:layout_height="wrap_content"
         android:hint="@string/expiration_date"
         android:layout_margin="8dp"
-        />
 
+        />
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="@string/update_balance_card"
+        android:onClick="updateBalanceCard"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

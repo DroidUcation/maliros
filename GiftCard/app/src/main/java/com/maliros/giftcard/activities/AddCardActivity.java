@@ -1,5 +1,6 @@
 package com.maliros.giftcard.activities;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,13 +14,16 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import com.maliros.giftcard.R;
@@ -58,7 +62,7 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
     static public List<CardType> typeSpinnerElements = new ArrayList<>();
-
+    Button btnOpenPopup;
     //UI References
     private EditText expirationDate;
     private DatePickerDialog expirationDatePickerDialog;
@@ -70,6 +74,7 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
 
         //TODO: ask michal
         imageView = (ImageView) findViewById(android.R.id.icon);
+        btnOpenPopup = (Button) findViewById(R.id.btn_update);
         ButterKnife.bind(this);
 
         // init card type spinner
@@ -117,6 +122,52 @@ public class AddCardActivity extends AppCompatActivity  implements View.OnClickL
                 // TODO Auto-generated method stub
             }
         });
+    }
+    public void  updateBalanceCard(View view){
+        LayoutInflater layoutInflater =
+                (LayoutInflater)getBaseContext()
+                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
+        Button btnDismiss = (Button)popupView.findViewById(R.id.btn_cancel);
+        Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.popupspinner);
+        ArrayAdapter<CardType> adapter =
+                new ArrayAdapter<CardType>(AddCardActivity.this,
+                        android.R.layout.simple_spinner_item, typeSpinnerElements);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        popupSpinner.setAdapter(adapter);
+        popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                typeIndex = position + 1;
+                typeAppend = parent.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+        btnDismiss.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }});
+        popupWindow.showAsDropDown(btnOpenPopup, 250,500);
+        btnSave.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                popupWindow.dismiss();
+                Intent intent = new Intent(v.getContext(),AddCardActivity.class);
+                startActivity(intent);
+            }});
+
     }
 
     public void pickPhoto(View view) {
