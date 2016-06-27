@@ -6,20 +6,19 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.adapters.CardDisplayAdapter;
 import com.maliros.giftcard.dbhelpers.GCDatabaseContract;
+import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 
 public class DisplayCardsActivity extends BaseActivity {
     String[] Company = {"Apple", "Genpack", "Microsoft", "HP", "HCL", "Ericsson"};
@@ -27,7 +26,7 @@ public class DisplayCardsActivity extends BaseActivity {
     private String typeAppend = "";
     private GridLayoutManager lLayout;
     Button btnOpenPopup;
-
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +60,7 @@ public class DisplayCardsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+      id = item.getItemId();
 
         if (id == R.id.action_search) {
             // Calls Custom Searchable Activity
@@ -88,7 +87,7 @@ public class DisplayCardsActivity extends BaseActivity {
                 popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
         Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
         Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
-        Spinner popupSpinner = (Spinner) popupView.findViewById(R.id.popupspinner);
+       /* Spinner popupSpinner = (Spinner) popupView.findViewById(R.id.popupspinner);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(DisplayCardsActivity.this,
                         android.R.layout.simple_spinner_item, Company);
@@ -108,7 +107,7 @@ public class DisplayCardsActivity extends BaseActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
             }
-        });
+        });*/
         btnDismiss.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,8 +120,11 @@ public class DisplayCardsActivity extends BaseActivity {
             public void onClick(View v) {
 
                 popupWindow.dismiss();
-                Intent intent = new Intent(v.getContext(), UpdateBalanceActivity.class);
+                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
+                intent.putExtra(CardEntry.CARD_TYPE_ID,id);
+                Log.d("Display**", CardEntry.CARD_TYPE_ID);
                 startActivity(intent);
+
             }
         });
 
