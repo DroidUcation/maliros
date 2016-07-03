@@ -1,6 +1,7 @@
 package com.maliros.giftcard.activities;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -15,9 +16,11 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,10 +87,22 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
         // init card type spinner
         setCardTypesSpinner();
-
         // init expiration date
         setExpirationDate();
+        setBalanceEditTxt();
+    }
 
+    private void setBalanceEditTxt() {
+        final EditText balanceEditTxt = (EditText) findViewById(R.id.edt_view_balance);
+        balanceEditTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
+            }
+        });
     }
 
     private void setExpirationDate() {
@@ -98,11 +113,26 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         expirationDateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
+                Log.d("has focus:", String.valueOf(hasFocus));
+                if (hasFocus) {
                     expirationDatePickerDialog.show();
+                } else if (!hasFocus) {
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
             }
         });
-//        expirationDateET.setOnClickListener(this);
+
+        expirationDateET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expirationDatePickerDialog.show();
+                if(!expirationDateET.hasFocus()){
+                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                }
+            }
+        });
 
         Calendar newCalendar = Calendar.getInstance();
         expirationDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -139,16 +169,17 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
-    public void  updateBalanceCard(View view){
+
+    public void updateBalanceCard(View view) {
         LayoutInflater layoutInflater =
-                (LayoutInflater)getBaseContext()
+                (LayoutInflater) getBaseContext()
                         .getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup, null);
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-        Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
-        Button btnDismiss = (Button)popupView.findViewById(R.id.btn_cancel);
-        Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.popupspinner);
+        Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
+        Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
+        Spinner popupSpinner = (Spinner) popupView.findViewById(R.id.popupspinner);
         ArrayAdapter<CardType> adapter =
                 new ArrayAdapter<CardType>(AddCardActivity.this,
                         android.R.layout.simple_spinner_item, typeSpinnerElements);
@@ -169,20 +200,22 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 // TODO Auto-generated method stub
             }
         });
-        btnDismiss.setOnClickListener(new Button.OnClickListener(){
+        btnDismiss.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
-            }});
-        popupWindow.showAsDropDown(btnOpenPopup, 250,500);
-        btnSave.setOnClickListener(new Button.OnClickListener(){
+            }
+        });
+        popupWindow.showAsDropDown(btnOpenPopup, 250, 500);
+        btnSave.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 popupWindow.dismiss();
-                Intent intent = new Intent(v.getContext(),AddCardActivity.class);
+                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
                 startActivity(intent);
-            }});
+            }
+        });
 
     }
 
@@ -333,14 +366,13 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     *
      * @param datePicker
      * @return a java.util.Date
      */
-    public static java.util.Date getDateFromDatePicker(DatePicker datePicker){
+    public static java.util.Date getDateFromDatePicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
-        int year =  datePicker.getYear();
+        int year = datePicker.getYear();
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
