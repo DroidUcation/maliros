@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/base_style"
-    tools:context=".activities.AddCardActivity">
+    tools:context=".activities.AddCardActivity"
+    android:focusableInTouchMode="true"
+    android:clickable="true">
 
     <Spinner
         android:id="@+id/type_spinner"
@@ -18,6 +20,7 @@
         android:inputType="number"
         android:layout_margin="8dp"
         android:id="@+id/edt_view_balance"
+        android:imeOptions="actionDone"
         />
 
     <EditText
@@ -26,8 +29,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/expiration_date"
         android:layout_margin="8dp"
-
+        android:descendantFocusability="blocksDescendants"
         />
+
     <Button
         android:id="@+id/btn_update"
         android:layout_width="match_parent"

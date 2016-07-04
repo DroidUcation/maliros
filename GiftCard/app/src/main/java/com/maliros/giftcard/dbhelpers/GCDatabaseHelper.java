@@ -120,7 +120,12 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(StoreEntry.NAME, "ZARA");
         values.put(StoreEntry.IS_CHAIN_STORE, 1);
+        // insert row
+        db.insert(StoreEntry.STORE_TBL, null, values);
 
+        values.clear();
+        values.put(StoreEntry.NAME, "FOX");
+        values.put(StoreEntry.IS_CHAIN_STORE, 1);
         // insert row
         db.insert(StoreEntry.STORE_TBL, null, values);
     }
@@ -139,13 +144,25 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
         values.put(CardTypeEntry.IMAGE, R.drawable.giftcard1);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
+
+        // another row
+        values.clear();
+        values.put(CardTypeEntry.NAME, "Tav Hazav");
+        values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
+        values.put(CardTypeEntry.IMAGE, R.drawable.tavhazav);
+        db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
     }
 
     private void insertStoresCardTypesData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put(StoreCardTypeEntry.STORE_ID, 1);
         values.put(StoreCardTypeEntry.CARD_TYPE_ID, 1);
+        // insert row
+        db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
 
+        values.clear();
+        values.put(StoreCardTypeEntry.STORE_ID, 2);
+        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 3);
         // insert row
         db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
     }
