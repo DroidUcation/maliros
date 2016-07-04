@@ -31,7 +31,6 @@ import android.widget.Spinner;
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
-import com.maliros.giftcard.entities.CardType;
 import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
@@ -50,10 +49,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -68,9 +65,9 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
 
-    static public List<CardType> typeSpinnerElements = new ArrayList<>();
-    Button btnOpenPopup;
 
+
+    Button btnOpenPopup;
 
     //UI References
     private EditText expirationDateET;
