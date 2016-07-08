@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,7 +33,6 @@ import android.widget.Spinner;
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
-import com.maliros.giftcard.entities.CardType;
 import com.maliros.giftcard.utils.DateUtil;
 
 import org.apache.http.HttpResponse;
@@ -53,12 +51,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.ButterKnife;
+
+
 
 public class AddCardActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -68,7 +66,9 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
-    static public List<CardType> typeSpinnerElements = new ArrayList<>();
+
+
+
     Button btnOpenPopup;
 
     //UI References
@@ -174,50 +174,58 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         LayoutInflater layoutInflater =
                 (LayoutInflater) getBaseContext()
                         .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.popup, null);
+        final View popupView = layoutInflater.inflate(R.layout.popup, null);
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-        Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
-        Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
-        Spinner popupSpinner = (Spinner) popupView.findViewById(R.id.popupspinner);
-        ArrayAdapter<CardType> adapter =
-                new ArrayAdapter<CardType>(AddCardActivity.this,
-                        android.R.layout.simple_spinner_item, typeSpinnerElements);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        popupSpinner.setAdapter(adapter);
-        popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                typeIndex = position + 1;
-                typeAppend = parent.getItemAtPosition(position).toString();
+        Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
+        Button btnDismiss = (Button)popupView.findViewById(R.id.btn_cancel);
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-            }
-        });
         btnDismiss.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
-        popupWindow.showAsDropDown(btnOpenPopup, 250, 500);
+
         btnSave.setOnClickListener(new Button.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
+                Log.d("Iwm here","whats up");
                 popupWindow.dismiss();
-                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
-                startActivity(intent);
-            }
-        });
 
-    }
+                Log.d("Iwm here","whats up");
+                // balance
+                EditText balance = (EditText)popupView.findViewById(R.id.et_count_used);
+                // Defines an object to contain the updated values
+                ContentValues mUpdateValues = new ContentValues();
+                // Defines selection criteria for the rows you want to update
+                String mSelectionClause = CardEntry._ID + " = ?";
+                String[] mSelectionArgs = { getIntent().getExtras().getString(CardEntry._ID )};//card id
+                Log.d("**", getIntent().getExtras().getString(CardEntry._ID ));
+                String[] selectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};
+                // Defines a variable to contain the number of updated rows
+                int mRowsUpdated = 0;
+                /*
+                 * Sets the updated value and updates the selected words.
+                 */
+                mUpdateValues.putNull(CardEntry.BALANCE);
+                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
+                mRowsUpdated = getContentResolver().update(
+                        CardEntry.CONTENT_URI,               // the user dictionary content URI
+                        mUpdateValues  ,                     // the columns to update
+                        mSelectionClause ,                   // the column to select on
+                        mSelectionArgs                      // the value to compare to
+                );
+
+                Intent intent = new Intent(v.getContext(),AddCardActivity.class);
+                startActivity(intent);
+            }});
+        popupWindow.showAsDropDown(btnOpenPopup, 250,500);
+
+            }
 
     public void pickPhoto(View view) {
         //TODO: launch the photo picker
