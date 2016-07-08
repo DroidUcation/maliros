@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 
+import com.firebase.client.Firebase;
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.adapters.CardDisplayAdapter;
 import com.maliros.giftcard.dbhelpers.GCDatabaseContract;
@@ -45,6 +47,8 @@ public class DisplayCardsActivity extends BaseActivity {
         CardDisplayAdapter cardDisplayAdapter = new CardDisplayAdapter(this, getCardsCursor());
         // 4. set adapter
         rView.setAdapter(cardDisplayAdapter);
+
+        Firebase.setAndroidContext(this);
 
     }
 
@@ -75,6 +79,26 @@ public class DisplayCardsActivity extends BaseActivity {
     }
 
     public void addCard(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating firebase object
+                Firebase ref = new Firebase(Config.FIREBASE_GIFTCARD_URL);
+
+                //Getting values to store
+                String name = ((EditText)findViewById(R.id.person_name)).getText().toString().trim();
+
+                //Creating Person object
+                Person person = new Person();
+
+                //Adding values
+                person.setName(name);
+
+
+                //Storing values to firebase
+                ref.child("Person").setValue(person);
+            }
+        });
         Intent intent = new Intent(this, AddCardActivity.class);
         startActivity(intent);
     }

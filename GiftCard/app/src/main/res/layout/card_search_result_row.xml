@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/result_item_height"
     android:background="@drawable/border"
-   >
+    android:paddingTop="10dp">
 
     <TextView
-        android:id ="@+id/result_name_text"
+        android:id="@+id/result_name_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:maxLines="1"
+        android:paddingLeft="16dp"
         android:text="Sub Header"
         android:textColor="@android:color/darker_gray"
         android:textSize="22dp" />
@@ -21,12 +21,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="40dp"
+        android:paddingTop="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
         android:maxLines="1"
-        android:text="where am i???????"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="22dp" />
+        android:text="where"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:textSize="22dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/circular_shape"/>
 
 
 </RelativeLayout>

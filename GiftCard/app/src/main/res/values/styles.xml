@@ -4,14 +4,19 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#E53935</item>
+        <item name="colorPrimaryDark">#E53935</item>
+        <item name="colorAccent">#E53935</item>
+        <!-- To change the popup menu and app text color  -->
+        <item name="android:textColor">@android:color/black</item>
+        <!-- To change the background of options menu-->
+        <item name="android:itemBackground">#E53935</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -88,7 +93,7 @@
     <style name="linearLayout_ct1">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-       <!-- <item name="android:background">@color/colorAccent</item>-->
+        <!-- <item name="android:background">@color/colorAccent</item>-->
         <item name="android:baselineAligned">false</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:padding">@dimen/eight</item>
@@ -98,7 +103,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
-
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="base_style3">
@@ -143,6 +148,7 @@
         <item name="android:scaleType">centerCrop</item>
 
     </style>
+
     <style name="add_card_style">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -158,8 +164,6 @@
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingBottom">6dp</item>
     </style>
-
-
 
 
 </resources>

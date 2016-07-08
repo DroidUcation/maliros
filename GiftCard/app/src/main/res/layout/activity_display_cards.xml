@@ -1,36 +1,51 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/base_style">
-
-    <RelativeLayout
-        style="@style/base_style3"
-        tools:context=".MainActivity">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            style="@style/base_style" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/recycler_view" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
-            <Button
-                android:id="@+id/btn_add_"
-                style="@style/linearLayout_ct2"
-                android:textSize="15dp"
-                android:onClick="addCard"
-                android:text="@string/add_card" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/person_name"/>
 
-            <Button
-                android:id="@+id/btn_update"
-                style="@style/linearLayout_ct2"
-                android:textSize="15dp"
-                android:text="@string/update_balance_card"
-                android:onClick="updateBalanceCard"/>
-
-        </LinearLayout>
-    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        style="@style/base_style"
+        android:layout_marginTop="22dp"/>
 
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="@dimen/add_button_margin"
+        android:layout_marginLeft="@dimen/add_button_margin"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="addCard"/>
+
+  <!--  <Button
+        android:id="@+id/btn_add_"
+        android:onClick="addCard"
+        android:text="@string/add_card"
+        android:textSize="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+
+    <Button
+        android:id="@+id/btn_update"
+        android:onClick="updateBalanceCard"
+        android:text="@string/update_balance_card"
+        android:textSize="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

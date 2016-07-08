@@ -3,7 +3,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/result_item_height"
-    android:background="@drawable/ripple"
     android:gravity="center_vertical"
     android:padding="12dp">
 
@@ -26,15 +25,15 @@
         android:layout_toRightOf="@id/rd_left_icon"
         android:maxLines="1"
         android:text="Sub Header"
-        android:textColor="@color/super_light_grey"
+        android:textColor="@color/cardview_dark_background"
         android:textSize="14dp" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/rd_right_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="3dp"
-        android:src="@drawable/arrow_left_up_icon" />
+        android:src="@drawable/arrow_left_up_icon" />-->
 </RelativeLayout>

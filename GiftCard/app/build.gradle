@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.maliros.giftcard"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,7 @@ android {
 
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/NOTICE'
@@ -42,4 +43,6 @@ dependencies {
     compile files('libs/httpmime-4.1.1.jar')
     compile files('libs/apache-httpcomponents-httpclient.jar')
     compile files('libs/http-core-4.1.jar')
+    //Adding Firebase
+    compile 'com.firebase:firebase-client-android:2.4.0'
 }
