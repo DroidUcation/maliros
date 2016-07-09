@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.maliros.giftcard.activities.SearchCardsActivity">
+    tools:context="com.maliros.giftcard.activities.SearchCardsActivity"
+    android:focusableInTouchMode="true">
 
 
     <AutoCompleteTextView
@@ -14,12 +15,14 @@
         android:dropDownVerticalOffset="5dp"
         android:dropDownWidth="wrap_content"
         android:inputType="textAutoComplete|textAutoCorrect"
-        android:popupBackground="@color/primary"
+        android:popupBackground="@color/line_grey"
         android:background="@color/rippleEffectWaveColor"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:paddingLeft="20dp"
-        android:completionThreshold="1">
+        android:completionThreshold="1"
+        android:imeOptions="actionDone"
+        >
     </AutoCompleteTextView>
 
 </RelativeLayout>

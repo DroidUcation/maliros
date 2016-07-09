@@ -79,7 +79,7 @@ public class SearchCardsResultActivity extends AppCompatActivity {
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
             viewHolder.nameViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
-            viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)));
+            viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
         }
     }
 

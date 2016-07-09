@@ -2,19 +2,18 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/result_item_height"
+    android:layout_height="@dimen/search_item_height"
     android:gravity="center_vertical"
     android:padding="12dp">
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/rd_left_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="3dp"
-        android:src="@drawable/clock_icon" />
-
+        android:src="@drawable/clock_icon" />-->
 
     <TextView
         android:id="@+id/gift_card_name_text"
@@ -22,18 +21,9 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/rd_left_icon"
         android:maxLines="1"
         android:text="Sub Header"
         android:textColor="@color/cardview_dark_background"
         android:textSize="14dp" />
 
-    <!--<ImageView
-        android:id="@+id/rd_right_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="3dp"
-        android:src="@drawable/arrow_left_up_icon" />-->
 </RelativeLayout>

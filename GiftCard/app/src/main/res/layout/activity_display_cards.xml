@@ -3,29 +3,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/person_name"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         style="@style/base_style"
         android:layout_marginTop="22dp"/>
 
-
     <ImageButton
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="@dimen/add_button_margin"
         android:layout_marginLeft="@dimen/add_button_margin"
-        android:src="@android:drawable/ic_input_add"
+        android:background="@drawable/plus_circular_shape"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:onClick="addCard"/>
+        android:onClick="addCard"
+        android:scaleType="centerCrop"/>
 
   <!--  <Button
         android:id="@+id/btn_add_"

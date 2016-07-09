@@ -11,6 +11,7 @@ import com.maliros.giftcard.adapters.viewholders.CardDisplayViewHolder;
 import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.recyclerviewgridview.CursorRecyclerViewAdapter;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -28,7 +29,11 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
         // - replace the contents of the view with that itemsData
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
         viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)));
-        viewHolder.cardTypeImage.setImageResource(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)));
+        Picasso.with(mContext)
+                .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
+//                .placeholder(R.drawable.ic_action_new)
+                .into(viewHolder.cardTypeImage);
+//        viewHolder.cardTypeImage.setImageResource(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)));
     }
 
     @Override

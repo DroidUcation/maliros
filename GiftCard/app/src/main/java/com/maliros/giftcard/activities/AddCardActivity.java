@@ -57,7 +57,6 @@ import java.util.Date;
 import butterknife.ButterKnife;
 
 
-
 public class AddCardActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String EXTRA_TRANSITION = "EXTRA_TRANSITION";
@@ -66,7 +65,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
-
 
 
     Button btnOpenPopup;
@@ -81,7 +79,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_card);
 
         //TODO: ask michal
-        imageView = (ImageView) findViewById(android.R.id.icon);
+//        imageView = (ImageView) findViewById(android.R.id.icon);
         btnOpenPopup = (Button) findViewById(R.id.btn_update);
         ButterKnife.bind(this);
 
@@ -98,7 +96,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
             }
@@ -117,7 +115,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 if (hasFocus) {
                     expirationDatePickerDialog.show();
                 } else if (!hasFocus) {
-                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
             }
@@ -127,8 +125,8 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 expirationDatePickerDialog.show();
-                if(!expirationDateET.hasFocus()){
-                    InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if (!expirationDateET.hasFocus()) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
             }
@@ -178,8 +176,8 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         final PopupWindow popupWindow = new PopupWindow(
                 popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
-        Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
-        Button btnDismiss = (Button)popupView.findViewById(R.id.btn_cancel);
+        Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
+        Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
 
 
         btnDismiss.setOnClickListener(new Button.OnClickListener() {
@@ -193,39 +191,39 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onClick(View v) {
-                Log.d("Iwm here","whats up");
+                Log.d("Iwm here", "whats up");
                 popupWindow.dismiss();
 
-                Log.d("Iwm here","whats up");
+                Log.d("Iwm here", "whats up");
                 // balance
-                EditText balance = (EditText)popupView.findViewById(R.id.et_count_used);
+                EditText balance = (EditText) popupView.findViewById(R.id.et_count_used);
                 // Defines an object to contain the updated values
                 ContentValues mUpdateValues = new ContentValues();
                 // Defines selection criteria for the rows you want to update
                 String mSelectionClause = CardEntry._ID + " = ?";
-                String[] mSelectionArgs = { getIntent().getExtras().getString(CardEntry._ID )};//card id
-                Log.d("**", getIntent().getExtras().getString(CardEntry._ID ));
+                String[] mSelectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};//card id
+                Log.d("**", getIntent().getExtras().getString(CardEntry._ID));
                 String[] selectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};
                 // Defines a variable to contain the number of updated rows
-                int mRowsUpdated = 0;
                 /*
                  * Sets the updated value and updates the selected words.
                  */
                 mUpdateValues.putNull(CardEntry.BALANCE);
                 mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
-                mRowsUpdated = getContentResolver().update(
+                getContentResolver().update(
                         CardEntry.CONTENT_URI,               // the user dictionary content URI
-                        mUpdateValues  ,                     // the columns to update
-                        mSelectionClause ,                   // the column to select on
+                        mUpdateValues,                     // the columns to update
+                        mSelectionClause,                   // the column to select on
                         mSelectionArgs                      // the value to compare to
                 );
 
-                Intent intent = new Intent(v.getContext(),AddCardActivity.class);
+                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
                 startActivity(intent);
-            }});
-        popupWindow.showAsDropDown(btnOpenPopup, 250,500);
-
             }
+        });
+        popupWindow.showAsDropDown(btnOpenPopup, 250, 500);
+
+    }
 
     public void pickPhoto(View view) {
         //TODO: launch the photo picker
@@ -351,26 +349,50 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    /**
+     * Validate required fields, add card, and redirect to display cards activity
+     *
+     * @param view
+     */
     public void AddCard(View view) {
-        // card type
-        Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
-        Cursor c = (Cursor) typesSpinner.getSelectedItem();
-        String cardTypeId = c.getString(c.getColumnIndex(CardTypeEntry._ID));
-        // balance
+        if (validateRequiredFields()) {
+            // card type
+            Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+            Cursor c = (Cursor) typesSpinner.getSelectedItem();
+            String cardTypeId = c.getString(c.getColumnIndex(CardTypeEntry._ID));
+            // balance
+            EditText balance = (EditText) findViewById(R.id.edt_view_balance);
+            // expiration date
+            String format = DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(getDateFromDatePicker(expirationDatePickerDialog.getDatePicker()));
+
+            // insert
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
+            contentValues.put(CardEntry.EXPIRATION_DATE, format);
+            contentValues.put(CardEntry.CARD_TYPE_ID, cardTypeId);
+            getContentResolver().insert(CardEntry.CONTENT_URI, contentValues);
+
+            // start cards display
+            Intent intent = new Intent(this, DisplayCardsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private boolean validateRequiredFields() {
+        boolean isValid = true;
         EditText balance = (EditText) findViewById(R.id.edt_view_balance);
-        // expiration date
-        String format = DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(getDateFromDatePicker(expirationDatePickerDialog.getDatePicker()));
-
-        // insert
-        ContentValues contentValues = new ContentValues(1);
-        contentValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
-        contentValues.put(CardEntry.EXPIRATION_DATE, format);
-        contentValues.put(CardEntry.CARD_TYPE_ID, cardTypeId);
-        getContentResolver().insert(CardEntry.CONTENT_URI, contentValues);
-
-        // start cards display
-        Intent intent = new Intent(this, DisplayCardsActivity.class);
-        startActivity(intent);
+        if (balance.getText() == null || balance.getText().toString().trim().equals("")) {
+            balance.setError("Balance is required!");
+            isValid = false;
+        } else if ("0".equals(balance.getText())) {
+            balance.setError("Balance has to be greater than 0!");
+            isValid = false;
+        }
+        if (expirationDateET.getText() == null || expirationDateET.getText().toString().trim().equals("")) {
+            expirationDateET.setError("Expiration date is required!");
+            isValid = false;
+        }
+        return isValid;
     }
 
     /**
@@ -401,7 +423,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             expirationDatePickerDialog.show();
         }
     }
-
 
 }
 
