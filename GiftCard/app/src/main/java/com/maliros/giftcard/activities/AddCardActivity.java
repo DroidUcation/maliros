@@ -70,7 +70,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
 
     Button btnOpenPopup;
-
+    EditText balance1;
     //UI References
     private EditText expirationDateET;
     private DatePickerDialog expirationDatePickerDialog;
@@ -81,6 +81,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_card);
 
         //TODO: ask michal
+        // What do you have to ask me ? lol:)
         imageView = (ImageView) findViewById(android.R.id.icon);
         btnOpenPopup = (Button) findViewById(R.id.btn_update);
         ButterKnife.bind(this);
@@ -198,7 +199,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
                 Log.d("Iwm here","whats up");
                 // balance
-                EditText balance = (EditText)popupView.findViewById(R.id.et_count_used);
+               balance1 = (EditText)popupView.findViewById(R.id.et_count_used);
                 // Defines an object to contain the updated values
                 ContentValues mUpdateValues = new ContentValues();
                 // Defines selection criteria for the rows you want to update
@@ -212,7 +213,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                  * Sets the updated value and updates the selected words.
                  */
                 mUpdateValues.putNull(CardEntry.BALANCE);
-                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
+                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance1.getText().toString()));
                 mRowsUpdated = getContentResolver().update(
                         CardEntry.CONTENT_URI,               // the user dictionary content URI
                         mUpdateValues  ,                     // the columns to update
