@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/base_style"
     tools:context=".activities.AddCardActivity"
     android:focusableInTouchMode="true"
     android:clickable="true">
+
+    <!--TODO: add extra data as: number, verification number etc.-->
 
     <Spinner
         android:id="@+id/type_spinner"
@@ -20,6 +22,7 @@
         android:inputType="number"
         android:layout_margin="8dp"
         android:id="@+id/edt_view_balance"
+        android:layout_below="@+id/type_spinner"
         android:imeOptions="actionDone"
         />
 
@@ -30,16 +33,19 @@
         android:hint="@string/expiration_date"
         android:layout_margin="8dp"
         android:descendantFocusability="blocksDescendants"
+        android:layout_below="@+id/edt_view_balance"
         />
 
     <Button
         android:id="@+id/btn_update"
-        android:layout_width="match_parent"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:text="@string/update_balance_card"
-        android:onClick="updateBalanceCard"/>
-    <TextView
+        android:onClick="updateBalanceCard"
+        android:layout_below="@+id/expiration_date"/>
+
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select a picture and upload"
@@ -62,12 +68,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="uploadPhoto"
-        android:text="Upload photo" />
+        android:text="Upload photo" />-->
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="AddCard"
+        android:id="@+id/add_card_btn"
+        android:layout_alignParentBottom="true"
         android:text="Add" />
 
 
@@ -75,4 +83,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+</RelativeLayout>

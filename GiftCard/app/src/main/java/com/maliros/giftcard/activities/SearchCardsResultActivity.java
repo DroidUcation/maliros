@@ -19,6 +19,7 @@ import com.maliros.giftcard.dbhelpers.entries.CardEntry;
 import com.maliros.giftcard.dbhelpers.entries.CardTypeEntry;
 import com.maliros.giftcard.dbhelpers.entries.StoreEntry;
 import com.maliros.giftcard.recyclerviewgridview.CursorRecyclerViewAdapter;
+import com.maliros.giftcard.style.DividerItemDecoration;
 
 public class SearchCardsResultActivity extends AppCompatActivity {
 
@@ -38,6 +39,9 @@ public class SearchCardsResultActivity extends AppCompatActivity {
         recyclerView.setAdapter(searchResultAdapter);
         // 5. set item animator to DefaultAnimator
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        // set item decoration
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.spinner_bg,
+                true, true));
     }
 
     private Cursor getAllItemList() {
@@ -75,7 +79,7 @@ public class SearchCardsResultActivity extends AppCompatActivity {
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
             viewHolder.nameViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
-            viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)));
+            viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
         }
     }
 
