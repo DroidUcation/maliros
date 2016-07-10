@@ -44,6 +44,7 @@ public class DisplayCardsActivity extends BaseActivity {
         CardDisplayAdapter cardDisplayAdapter = new CardDisplayAdapter(this, getCardsCursor());
         // 4. set adapter
         rView.setAdapter(cardDisplayAdapter);
+
     }
 
     private Cursor getCardsCursor() {

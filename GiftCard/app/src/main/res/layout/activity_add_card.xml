@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
+        android:layout_marginTop="16dp"
         style="@style/spinner_style"/>
 
     <EditText
@@ -38,12 +39,14 @@
 
     <Button
         android:id="@+id/btn_update"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:textSize="15dp"
-        android:text="@string/update_balance_card"
+        android:layout_marginRight="10dp"
         android:onClick="updateBalanceCard"
-        android:layout_below="@+id/expiration_date"/>
+        android:layout_below="@+id/type_spinner"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_icon"/>
 
     <!--<TextView
         android:layout_width="match_parent"
@@ -76,7 +79,9 @@
         android:onClick="AddCard"
         android:id="@+id/add_card_btn"
         android:layout_alignParentBottom="true"
-        android:text="Add" />
+        android:text="Add"
+        android:textSize="20sp"
+        android:background="#EF5350"/>
 
 
     <android.support.v4.widget.NestedScrollView style="@style/n_scroll_view">

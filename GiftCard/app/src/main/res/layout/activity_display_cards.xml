@@ -6,12 +6,12 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         style="@style/base_style"
-        android:layout_marginTop="22dp"/>
+        android:layout_margin="16dp"/>
 
     <ImageButton
         android:id="@+id/add_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_marginBottom="@dimen/add_button_margin"
         android:layout_marginLeft="@dimen/add_button_margin"
         android:background="@drawable/plus_circular_shape"
@@ -19,26 +19,5 @@
         android:layout_alignParentLeft="true"
         android:onClick="addCard"
         android:scaleType="centerCrop"/>
-
-  <!--  <Button
-        android:id="@+id/btn_add_"
-        android:onClick="addCard"
-        android:text="@string/add_card"
-        android:textSize="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
-
-    <Button
-        android:id="@+id/btn_update"
-        android:onClick="updateBalanceCard"
-        android:text="@string/update_balance_card"
-        android:textSize="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
 
 </RelativeLayout>

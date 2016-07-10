@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="section_header_dimens">18sp</dimen>
     <dimen name="four">4dp</dimen>
-    <dimen name="eight">8dp</dimen>
+    <dimen name="eight">6dp</dimen>
     <dimen name="zero">0dp</dimen>
     <dimen name="twentyfour1">24dp</dimen>
     <dimen name="twentyfour2">24sp</dimen>
@@ -12,8 +12,8 @@
     <dimen name="twenty">20sp</dimen>
     <dimen name="fifteen">15sp</dimen>
     <dimen name="sixteen">16dp</dimen>
-    <dimen name="eighty">80dp</dimen>
-    <dimen name="thirteensp">13sp</dimen>
+    <dimen name="sixthy">72dp</dimen>
+    <dimen name="eighteen">18sp</dimen>
 
     <dimen name="text_title">20sp</dimen>
     <dimen name="text_body">16sp</dimen>

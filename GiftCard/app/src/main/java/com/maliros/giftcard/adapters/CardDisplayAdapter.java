@@ -28,7 +28,7 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
-        viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)));
+        viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
         Picasso.with(mContext)
                 .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
 //                .placeholder(R.drawable.ic_action_new)

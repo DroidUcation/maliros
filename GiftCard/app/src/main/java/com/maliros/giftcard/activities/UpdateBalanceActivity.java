@@ -30,7 +30,7 @@ public class UpdateBalanceActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_balance);
 
-       tvTypeOfCard = (TextView) findViewById(R.id.tv_type_of_card);
+//       tvTypeOfCard = (TextView) findViewById(R.id.tv_type_of_card);
 
         tvCount = (TextView) findViewById(R.id.tv_count);
 

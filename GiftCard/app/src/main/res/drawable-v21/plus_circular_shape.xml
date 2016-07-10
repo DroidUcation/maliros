@@ -2,11 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <corners android:radius="26dip"></corners>
+            <corners android:radius="24dip"></corners>
             <solid android:color="@color/white"></solid>
+            <stroke
+                android:width="5dp"
+                android:color="@android:color/secondary_text_dark"></stroke>
         </shape>
     </item>
-    <item
-        android:drawable="@drawable/plus_button"
-   />
+    <item android:drawable="@drawable/plud_button"></item>
 </layer-list>
