@@ -65,7 +65,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
 
-
+    private EditText balance1;
     Button btnOpenPopup;
 
     //UI References
@@ -167,6 +167,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+
     public void updateBalanceCard(View view) {
         LayoutInflater layoutInflater =
                 (LayoutInflater) getBaseContext()
@@ -195,7 +196,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
                 Log.d("Iwm here", "whats up");
                 // balance
-                EditText balance = (EditText) popupView.findViewById(R.id.et_count_used);
+                balance1 = (EditText) popupView.findViewById(R.id.et_count_used);
                 // Defines an object to contain the updated values
                 ContentValues mUpdateValues = new ContentValues();
                 // Defines selection criteria for the rows you want to update
@@ -204,12 +205,13 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 Log.d("**", getIntent().getExtras().getString(CardEntry._ID));
                 String[] selectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};
                 // Defines a variable to contain the number of updated rows
+                int mRowsUpdated = 0;
                 /*
                  * Sets the updated value and updates the selected words.
                  */
                 mUpdateValues.putNull(CardEntry.BALANCE);
-                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
-                getContentResolver().update(
+                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance1.getText().toString()));
+                mRowsUpdated = getContentResolver().update(
                         CardEntry.CONTENT_URI,               // the user dictionary content URI
                         mUpdateValues,                     // the columns to update
                         mSelectionClause,                   // the column to select on
@@ -424,5 +426,3 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 }
-
-
