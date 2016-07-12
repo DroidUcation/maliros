@@ -10,64 +10,40 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.DisplayCardsActivity"
+            android:label="@string/my_cards">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.AddCardActivity"
-            android:label="@string/add_card_activity"
             android:parentActivityName=".activities.DisplayCardsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.DisplayCardsActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
+                android:value="activities.DisplayCardsActivity" />
         </activity>
         <activity
             android:name=".activities.UpdateBalanceActivity"
             android:label="@string/update_balance_activity"
-            android:parentActivityName="activities.MainActivity">
+            android:parentActivityName="activities.DisplayCardsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
+                android:value="activities.DisplayCardsActivity" />
         </activity>
         <activity
             android:name=".activities.SearchCardsActivity"
-            android:label="@string/add_card_activity"
             android:parentActivityName=".activities.DisplayCardsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.DisplayCardsActivity" />
         </activity>
-<!--        <activity
-            android:name=".activities.WindowTransitionsActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.TransitionInActivity"
-            android:label="@string/add_card_activity"
-            android:parentActivityName="activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="activities.MainActivity" />
-        </activity>-->
 
         <activity android:name=".activities.SearchCardsResultActivity"
-            android:parentActivityName=".activities.SearchCardsActivity">
+            android:parentActivityName=".activities.SearchCardsActivity"
+            android:windowSoftInputMode="stateAlwaysVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.SearchCardsActivity" />
