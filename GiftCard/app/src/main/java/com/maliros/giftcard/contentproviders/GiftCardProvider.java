@@ -278,6 +278,7 @@ public class GiftCardProvider extends ContentProvider {
         // Because null could delete all rows:
         if (rows != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
+            Log.d("update!!", String.valueOf(rows));
         }
 
         return rows;

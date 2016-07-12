@@ -3,6 +3,7 @@ package com.maliros.giftcard.activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -66,9 +67,14 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView imageView;
     private boolean isCreateMode = true;
     private EditText balance1;
-    Button btnOpenPopup;
+    private Button btnOpenPopup;
+    private int cardId;
+    private Cursor cardCursor;
 
     //UI References
+    private EditText cvv;
+    private EditText cardNumber;
+    private EditText balance;
     private EditText expirationDateET;
     private DatePickerDialog expirationDatePickerDialog;
 
@@ -86,18 +92,24 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         setCardTypesSpinner();
         // init expiration date
         setExpirationDate();
+        // balance
         setBalanceEditTxt();
+        // cardNumber & cvv
+        handleCardNumberAndCvv();
     }
 
     private void handleCreateUpdateMode() {
-        int cardId = (getIntent() != null && getIntent().getExtras() != null) ? getIntent().getExtras().getInt(CardEntry._ID, -1) : 0;
-        if (cardId != -1) {
+        this.cardId = (getIntent() != null && getIntent().getExtras() != null) ? getIntent().getExtras().getInt(CardEntry._ID, -1) : 0;
+        if (this.cardId != -1) {
+            Log.d("**id", String.valueOf(this.cardId));
             this.isCreateMode = false;
             setTitle(getString(R.string.update_card_title));
             Button addButton = (Button) findViewById(R.id.add_card_btn);
             // handle buttons
             addButton.setText(R.string.update_button_text);
-        }else{
+            cardCursor = getContentResolver().query(ContentUris.withAppendedId(CardEntry.CONTENT_URI, this.cardId), null, null, null, null);
+            cardCursor.moveToFirst();
+        } else {
             setTitle(getString(R.string.add_card_title));
         }
         Button updateBalanceBtn = (Button) findViewById(R.id.btn_update_balance);
@@ -105,8 +117,18 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setBalanceEditTxt() {
-        final EditText balanceEditTxt = (EditText) findViewById(R.id.edt_view_balance);
-        balanceEditTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        balance = (EditText) findViewById(R.id.edt_view_balance);
+        balance.setOnFocusChangeListener(getFocusChangeListener());
+
+        balance.setEnabled(this.isCreateMode);
+        // init values in update mode
+        if (isUpdateWithCardRecord()) {
+            balance.setText(cardCursor.getString(cardCursor.getColumnIndex(CardEntry.BALANCE)));
+        }
+    }
+
+    private View.OnFocusChangeListener getFocusChangeListener(){
+        return new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -114,8 +136,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                     inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
             }
-        });
-        balanceEditTxt.setEnabled(this.isCreateMode);
+        };
     }
 
     private void setExpirationDate() {
@@ -126,7 +147,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         expirationDateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Log.d("has focus:", String.valueOf(hasFocus));
                 if (hasFocus) {
                     expirationDatePickerDialog.show();
                 } else if (!hasFocus) {
@@ -148,6 +168,12 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         Calendar newCalendar = Calendar.getInstance();
+        // init values in update mode
+        if (isUpdateWithCardRecord()) {
+            newCalendar = DateUtil.getDate(cardCursor.getString(cardCursor.getColumnIndex(CardEntry.EXPIRATION_DATE)));
+            expirationDateET.setText(DateUtil.DATE_FORMAT_DD_MM_YYYY.format(newCalendar.getTime()));
+        }
+
         expirationDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -155,13 +181,26 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 expirationDateET.setText(DateUtil.DATE_FORMAT_DD_MM_YYYY.format(newDate.getTime()));
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+    }
+
+    private boolean isUpdateWithCardRecord() {
+        return (!isCreateMode && cardCursor != null && cardCursor.moveToFirst());
     }
 
     private void setCardTypesSpinner() {
         Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+        String selection = null;
+        String[] selectionArgs = null;
+        // init values in update mode- retrieve only this card type
+        if (isUpdateWithCardRecord()) {
+            selection = CardTypeEntry._ID + " = ?";
+            selectionArgs = new String[]{String.valueOf(cardCursor.getInt(cardCursor.getColumnIndex(CardEntry.CARD_TYPE_ID)))};
+        }
+
         // query _id and name
         String[] projection = {CardTypeEntry._ID, CardTypeEntry.NAME};
-        Cursor cardTypeCursor = getContentResolver().query(CardTypeEntry.CONTENT_URI, projection, null, null, null);
+        Cursor cardTypeCursor = getContentResolver().query(CardTypeEntry.CONTENT_URI, projection, selection, selectionArgs, null);
         // spinner fields
         String[] from = {CardTypeEntry.NAME};
         int[] to = {android.R.id.text1};
@@ -185,6 +224,18 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         typesSpinner.setClickable(this.isCreateMode);
     }
 
+    private void handleCardNumberAndCvv() {
+        this.cardNumber = (EditText) findViewById(R.id.edt_card_number);
+        this.cvv = (EditText) findViewById(R.id.edt_cvv);
+        cardNumber.setOnFocusChangeListener(getFocusChangeListener());
+        cardNumber.setEnabled(this.isCreateMode);
+        cvv.setOnFocusChangeListener(getFocusChangeListener());
+        cvv.setEnabled(this.isCreateMode);
+        if (isUpdateWithCardRecord()) {
+            cardNumber.setText(cardCursor.getString(cardCursor.getColumnIndex(CardEntry.CARD_NUMBER)));
+            cvv.setText(cardCursor.getString(cardCursor.getColumnIndex(CardEntry.CVV)));
+        }
+    }
 
     public void updateBalanceCard(View view) {
         LayoutInflater layoutInflater =
@@ -196,7 +247,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
         Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
         Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
-
 
         btnDismiss.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -220,8 +270,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 // Defines selection criteria for the rows you want to update
                 String mSelectionClause = CardEntry._ID + " = ?";
                 String[] mSelectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};//card id
-                Log.d("**", getIntent().getExtras().getString(CardEntry._ID));
-                String[] selectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};
+                Log.d("**", mSelectionArgs.toString());
                 // Defines a variable to contain the number of updated rows
                 int mRowsUpdated = 0;
                 /*
@@ -373,24 +422,32 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
      *
      * @param view
      */
-    public void AddCard(View view) {
+    public void updateOrAddCard(View view) {
         if (validateRequiredFields()) {
-            // card type
-            Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
-            Cursor c = (Cursor) typesSpinner.getSelectedItem();
-            String cardTypeId = c.getString(c.getColumnIndex(CardTypeEntry._ID));
-            // balance
-            EditText balance = (EditText) findViewById(R.id.edt_view_balance);
+            // general values for insert & update
             // expiration date
             String format = DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(getDateFromDatePicker(expirationDatePickerDialog.getDatePicker()));
-
-            // insert
             ContentValues contentValues = new ContentValues(1);
             contentValues.put(CardEntry.BALANCE, Double.parseDouble(balance.getText().toString()));
             contentValues.put(CardEntry.EXPIRATION_DATE, format);
-            contentValues.put(CardEntry.CARD_TYPE_ID, cardTypeId);
-            getContentResolver().insert(CardEntry.CONTENT_URI, contentValues);
 
+            if (!isCreateMode) {
+                // Defines selection criteria for the rows you want to update
+                String mSelectionClause = CardEntry._ID + " = ?";
+                String[] mSelectionArgs = {String.valueOf(this.cardId)};//card id
+                getContentResolver().update(CardEntry.CONTENT_URI, contentValues, mSelectionClause, mSelectionArgs);
+            } else {
+                // card type
+                Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+                Cursor c = (Cursor) typesSpinner.getSelectedItem();
+                String cardTypeId = c.getString(c.getColumnIndex(CardTypeEntry._ID));
+                contentValues.put(CardEntry.CARD_TYPE_ID, cardTypeId);
+                // card number & cvv
+                contentValues.put(CardEntry.CARD_NUMBER, this.cardNumber.getText().toString());
+                contentValues.put(CardEntry.CVV, this.cvv.getText().toString());
+
+                getContentResolver().insert(CardEntry.CONTENT_URI, contentValues);
+            }
             // start cards display
             Intent intent = new Intent(this, DisplayCardsActivity.class);
             startActivity(intent);
@@ -399,7 +456,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean validateRequiredFields() {
         boolean isValid = true;
-        EditText balance = (EditText) findViewById(R.id.edt_view_balance);
+        // balance
         if (balance.getText() == null || balance.getText().toString().trim().equals("")) {
             balance.setError("Balance is required!");
             isValid = false;
@@ -407,10 +464,28 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             balance.setError("Balance has to be greater than 0!");
             isValid = false;
         }
+        // expiration date
         if (expirationDateET.getText() == null || expirationDateET.getText().toString().trim().equals("")) {
             expirationDateET.setError("Expiration date is required!");
             isValid = false;
         }
+        // card number
+        if (cardNumber.getText() == null || cardNumber.getText().toString().trim().equals("")) {
+            cardNumber.setError("Card Number is required!");
+            isValid = false;
+        } else if ("0".equals(cardNumber.getText())) {
+            cardNumber.setError("Card Number has to be greater than 0!");
+            isValid = false;
+        }
+        // cvv
+        if (cvv.getText() == null || cvv.getText().toString().trim().equals("")) {
+            cvv.setError("Card Verification Valid is required!");
+            isValid = false;
+        } else if ("0".equals(cvv.getText())) {
+            cvv.setError("Card Verification Valid has to be greater than 0!");
+            isValid = false;
+        }
+
         return isValid;
     }
 

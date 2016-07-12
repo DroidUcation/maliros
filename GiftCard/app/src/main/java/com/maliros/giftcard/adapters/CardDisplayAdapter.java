@@ -30,6 +30,7 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
         // - replace the contents of the view with that itemsData
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
         viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
+        Log.d("***view id", String.valueOf(cursor.getInt(cursor.getColumnIndex(CardEntry._ID))));
         viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
         Log.d("iddd", String.valueOf(viewHolder.cardId));
         Picasso.with(mContext)

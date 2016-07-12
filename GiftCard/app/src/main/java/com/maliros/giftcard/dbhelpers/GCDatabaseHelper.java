@@ -50,8 +50,10 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
             UserEntry.PASSWORD + " TEXT )";
 
     private static final String SQL_CREATE_CARD_TBL = "CREATE TABLE " + CardEntry.CARD_TBL + " ( " +
-            CardEntry._ID + " INTEGER , " +
+            CardEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CardEntry.CARD_TYPE_ID + " INTEGER , " +
+            CardEntry.CARD_NUMBER + " INTEGER , " +
+            CardEntry.CVV + " INTEGER , " +
             CardEntry.IS_FOR_UNIQUE_STORE + " SMALLINT , " +
             CardEntry.UNIQUE_STORE_NAME + " TEXT , " +
             CardEntry.BALANCE + " DOUBLE , " +//TODO: check type
@@ -181,11 +183,14 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
     private void insertCardsData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put(CardEntry.CARD_TYPE_ID, 1);
+//        values.put(CardEntry._ID, 1);
         values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);
         values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
         values.put(CardEntry.BALANCE, 320);
         values.put(CardEntry.EXPIRATION_DATE, DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(new Date()));
         values.put(CardEntry.USER_ID, 1);
+        values.put(CardEntry.CARD_NUMBER, 13425746);
+        values.put(CardEntry.CVV, 725);
 
         // insert row
         db.insert(CardEntry.CARD_TBL, null, values);

@@ -6,8 +6,6 @@
     android:focusableInTouchMode="true"
     android:clickable="true">
 
-    <!--TODO: add extra data as: number, verification number etc.-->
-
     <Spinner
         android:id="@+id/type_spinner"
         android:layout_width="match_parent"
@@ -19,11 +17,33 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/card_number_hint"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        android:id="@+id/edt_card_number"
+        android:layout_below="@+id/type_spinner"
+        android:imeOptions="actionDone"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cvv_hint"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        android:id="@+id/edt_cvv"
+        android:layout_below="@+id/edt_card_number"
+        android:imeOptions="actionDone"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/count"
         android:inputType="number"
         android:layout_margin="8dp"
         android:id="@+id/edt_view_balance"
-        android:layout_below="@+id/type_spinner"
+        android:layout_below="@+id/edt_cvv"
         android:imeOptions="actionDone"
         />
 
@@ -44,7 +64,7 @@
         android:textSize="15dp"
         android:layout_marginRight="10dp"
         android:onClick="updateBalanceCard"
-        android:layout_below="@+id/type_spinner"
+        android:layout_below="@+id/edt_cvv"
         android:layout_alignParentRight="true"
         android:background="@drawable/edit_icon"/>
 
@@ -76,7 +96,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="AddCard"
+        android:onClick="updateOrAddCard"
         android:id="@+id/add_card_btn"
         android:layout_alignParentBottom="true"
         android:text="Add"

@@ -21,6 +21,8 @@ public class CardEntry implements BaseColumns {
     public static final String BALANCE = "balance";
     public static final String EXPIRATION_DATE = "expirationDate";
     public static final String USER_ID = "userId";
+    public static final String CARD_NUMBER = "cardNumber";
+    public static final String CVV = "cvv";
 
     // aliases
     public static final String FULL_BALANCE_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + BALANCE;

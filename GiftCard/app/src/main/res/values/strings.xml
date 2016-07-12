@@ -17,6 +17,8 @@
     <string name="update_button_text">Update</string>
     <string name="add_card_title">Add Card</string>
     <string name="update_card_title">Update Card</string>
+    <string name="card_number_hint">Card Number</string>
+    <string name="cvv_hint">Card Verification Value</string>
     <string-array name="type_spinner_elements">
         <item>All</item>
         <item>Coffee With Alcohol</item>
