@@ -24,6 +24,7 @@ public class CardEntry implements BaseColumns {
 
     // aliases
     public static final String FULL_BALANCE_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + BALANCE;
+    public static final String FULL_ID_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + _ID;
 
     // Content URI represents the base location for the table
     public static final Uri CONTENT_URI =

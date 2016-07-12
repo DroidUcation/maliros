@@ -75,6 +75,7 @@ public class GiftCardProvider extends ContentProvider {
         projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
         projectionsMap.put(CardTypeEntry.IMAGE, CardTypeEntry.FULL_IMAGE_ALIAS);
+        projectionsMap.put(CardEntry._ID, CardEntry.FULL_ID_ALIAS);
         return projectionsMap;
     }
 

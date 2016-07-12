@@ -64,7 +64,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
-
+    private boolean isCreateMode = true;
     private EditText balance1;
     Button btnOpenPopup;
 
@@ -77,16 +77,31 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
-        //TODO: ask michal
-//        imageView = (ImageView) findViewById(android.R.id.icon);
-        btnOpenPopup = (Button) findViewById(R.id.btn_update);
+        btnOpenPopup = (Button) findViewById(R.id.btn_update_balance);
         ButterKnife.bind(this);
 
+        // create/update mode
+        handleCreateUpdateMode();
         // init card type spinner
         setCardTypesSpinner();
         // init expiration date
         setExpirationDate();
         setBalanceEditTxt();
+    }
+
+    private void handleCreateUpdateMode() {
+        int cardId = (getIntent() != null && getIntent().getExtras() != null) ? getIntent().getExtras().getInt(CardEntry._ID, -1) : 0;
+        if (cardId != -1) {
+            this.isCreateMode = false;
+            setTitle(getString(R.string.update_card_title));
+            Button addButton = (Button) findViewById(R.id.add_card_btn);
+            // handle buttons
+            addButton.setText(R.string.update_button_text);
+        }else{
+            setTitle(getString(R.string.add_card_title));
+        }
+        Button updateBalanceBtn = (Button) findViewById(R.id.btn_update_balance);
+        updateBalanceBtn.setVisibility(this.isCreateMode ? View.GONE : View.VISIBLE);
     }
 
     private void setBalanceEditTxt() {
@@ -100,6 +115,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+        balanceEditTxt.setEnabled(this.isCreateMode);
     }
 
     private void setExpirationDate() {
@@ -165,6 +181,8 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 // TODO Auto-generated method stub
             }
         });
+        typesSpinner.setEnabled(this.isCreateMode);
+        typesSpinner.setClickable(this.isCreateMode);
     }
 
 

@@ -2,6 +2,7 @@ package com.maliros.giftcard.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
         // - replace the contents of the view with that itemsData
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
         viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
+        viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
+        Log.d("iddd", String.valueOf(viewHolder.cardId));
         Picasso.with(mContext)
                 .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
 //                .placeholder(R.drawable.ic_action_new)

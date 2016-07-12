@@ -32,7 +32,7 @@ public class DisplayCardsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
-        btnOpenPopup = (Button) findViewById(R.id.btn_update);
+        btnOpenPopup = (Button) findViewById(R.id.btn_update_balance);
         lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
 
         // 1. get a reference to recyclerView
@@ -44,7 +44,6 @@ public class DisplayCardsActivity extends BaseActivity {
         CardDisplayAdapter cardDisplayAdapter = new CardDisplayAdapter(this, getCardsCursor());
         // 4. set adapter
         rView.setAdapter(cardDisplayAdapter);
-
     }
 
     private Cursor getCardsCursor() {
@@ -75,6 +74,7 @@ public class DisplayCardsActivity extends BaseActivity {
 
     public void addCard(View view) {
         Intent intent = new Intent(this, AddCardActivity.class);
+        intent.putExtra(CardEntry._ID, -1);
         startActivity(intent);
     }
 
