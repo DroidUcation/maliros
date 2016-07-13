@@ -2,6 +2,7 @@ package com.maliros.giftcard.activities;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,14 +28,18 @@ public class DisplayCardsActivity extends BaseActivity {
     private GridLayoutManager lLayout;
     Button btnOpenPopup;
     int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
         btnOpenPopup = (Button) findViewById(R.id.btn_update_balance);
-        lLayout = new GridLayoutManager(DisplayCardsActivity.this, 1);
-
+        int columnsNumber = 1;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            columnsNumber = 2;
+        }
+        lLayout = new GridLayoutManager(DisplayCardsActivity.this, columnsNumber);
         // 1. get a reference to recyclerView
         RecyclerView rView = (RecyclerView) findViewById(R.id.recycler_view);
         rView.setHasFixedSize(true);
@@ -59,7 +64,7 @@ public class DisplayCardsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      id = item.getItemId();
+        id = item.getItemId();
 
         if (id == R.id.action_search) {
             // Calls Custom Searchable Activity
@@ -121,7 +126,7 @@ public class DisplayCardsActivity extends BaseActivity {
 
                 popupWindow.dismiss();
                 Intent intent = new Intent(v.getContext(), AddCardActivity.class);
-                intent.putExtra(CardEntry.CARD_TYPE_ID,id);
+                intent.putExtra(CardEntry.CARD_TYPE_ID, id);
                 Log.d("Display**", CardEntry.CARD_TYPE_ID);
                 startActivity(intent);
 
