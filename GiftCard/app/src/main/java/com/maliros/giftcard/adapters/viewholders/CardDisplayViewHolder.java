@@ -15,13 +15,15 @@ import com.maliros.giftcard.dbhelpers.entries.CardEntry;
  */
 public class CardDisplayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView nameTxtView;
+    public TextView numberCvvTxtView;
     public TextView balanceTxtView;
     public ImageView cardTypeImage;
     public int cardId;
 
     public CardDisplayViewHolder(View itemView) {
         super(itemView);
-        nameTxtView = (TextView) itemView.findViewById(R.id.name);
+        nameTxtView = (TextView) itemView.findViewById(R.id.card_name);
+        numberCvvTxtView = (TextView) itemView.findViewById(R.id.card_number_cvv);
         balanceTxtView = (TextView) itemView.findViewById(R.id.balance);
         cardTypeImage = (ImageView) itemView.findViewById(R.id.photo);
         itemView.setOnClickListener(this);

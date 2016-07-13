@@ -1,6 +1,7 @@
 package com.maliros.giftcard.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,9 @@ import com.maliros.giftcard.style.DividerItemDecoration;
 
 public class SearchCardsResultActivity extends AppCompatActivity {
 
+    TextView balanceSumTv;
+    private Double balanceSum = 0d;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +46,13 @@ public class SearchCardsResultActivity extends AppCompatActivity {
         // set item decoration
         recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.spinner_bg,
                 true, true));
+
+
+//        balanceSumTv.setVisibility(balanceSum != 0 ? View.VISIBLE : View.INVISIBLE);
     }
 
     private Cursor getAllItemList() {
-        String[] projection = {CardTypeEntry.NAME, CardEntry.BALANCE};
+        String[] projection = {CardTypeEntry.NAME, CardEntry.BALANCE, CardEntry.CARD_NUMBER, CardEntry.CVV, CardEntry._ID};
         String selection = StoreEntry.FULL_NAME_ALIAS + " = ?";
         Log.d("**", getIntent().getExtras().getString(StoreEntry.NAME));
         String[] selectionArgs = {getIntent().getExtras().getString(StoreEntry.NAME)};
@@ -79,20 +86,45 @@ public class SearchCardsResultActivity extends AppCompatActivity {
             // - get data from your itemsData at this position
             // - replace the contents of the view with that itemsData
             viewHolder.nameViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
-            viewHolder.balanceViewTitle.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
+            StringBuilder numberAndCvv = new StringBuilder(cursor.getString(cursor.getColumnIndex(CardEntry.CARD_NUMBER)))
+                    .append(" / ")
+                    .append(cursor.getString(cursor.getColumnIndex(CardEntry.CVV)));
+            viewHolder.numberCvvViewTitle.setText(numberAndCvv);
+            String balance = cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE));
+            viewHolder.balanceViewTitle.setText(balance + "$");
+            viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
+
+            balanceSum += Double.valueOf(balance);
+            updateTotalBalanceSum();
+        }
+
+        private void updateTotalBalanceSum(){
+            balanceSumTv = (TextView) findViewById(R.id.result_balance_sum);
+            balanceSumTv.setText("Total:   " + balanceSum.toString() + "$");
         }
     }
 
     // inner class to hold a reference to each item of RecyclerView
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView nameViewTitle;
+        public TextView numberCvvViewTitle;
         public TextView balanceViewTitle;
+        public int cardId;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             nameViewTitle = (TextView) itemLayoutView.findViewById(R.id.result_name_text);
+            numberCvvViewTitle = (TextView) itemLayoutView.findViewById(R.id.result_number_cvv);
             balanceViewTitle = (TextView) itemLayoutView.findViewById(R.id.result_balance_text);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent itemIntent = new Intent(view.getContext(), AddCardActivity.class);
+            itemIntent.putExtra(CardEntry._ID, cardId);
+            view.getContext().startActivity(itemIntent);
         }
     }
 

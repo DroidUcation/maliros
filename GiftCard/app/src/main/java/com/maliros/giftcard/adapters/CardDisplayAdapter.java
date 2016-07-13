@@ -2,7 +2,6 @@ package com.maliros.giftcard.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +25,16 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
 
     @Override
     public void onBindViewHolder(CardDisplayViewHolder viewHolder, Cursor cursor) {
-        // - get data from your itemsData at this position
-        // - replace the contents of the view with that itemsData
+
+        StringBuilder numberAndCvv = new StringBuilder(cursor.getString(cursor.getColumnIndex(CardEntry.CARD_NUMBER)))
+                .append(" / ")
+                .append(cursor.getString(cursor.getColumnIndex(CardEntry.CVV)));
+        viewHolder.numberCvvTxtView.setText(numberAndCvv);
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
         viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
-        Log.d("***view id", String.valueOf(cursor.getInt(cursor.getColumnIndex(CardEntry._ID))));
         viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
-        Log.d("iddd", String.valueOf(viewHolder.cardId));
         Picasso.with(mContext)
                 .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
-//                .placeholder(R.drawable.ic_action_new)
                 .into(viewHolder.cardTypeImage);
 //        viewHolder.cardTypeImage.setImageResource(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)));
     }

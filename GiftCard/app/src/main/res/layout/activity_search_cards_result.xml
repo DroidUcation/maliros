@@ -6,4 +6,19 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         style="@style/base_style" />
+
+    <TextView
+        android:id="@+id/result_balance_sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="#424242"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/recyclerView"
+        android:background="#FFEE58"
+        android:padding="8dp"
+        android:layout_margin="16dp"
+        android:gravity="right"
+        />
 </RelativeLayout>

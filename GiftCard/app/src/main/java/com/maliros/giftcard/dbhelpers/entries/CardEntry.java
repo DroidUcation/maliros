@@ -24,9 +24,14 @@ public class CardEntry implements BaseColumns {
     public static final String CARD_NUMBER = "cardNumber";
     public static final String CVV = "cvv";
 
+    // concat columns
+    public static final String CARD_NUMBER_CVV = CARD_NUMBER + " || ' ' || " + CVV;
+
     // aliases
     public static final String FULL_BALANCE_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + BALANCE;
     public static final String FULL_ID_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + _ID;
+    public static final String FULL_CARD_NUMBER_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + CARD_NUMBER;
+    public static final String FULL_CVV_ALIAS = GCDatabaseContract.CARD_ALIAS + "." + CVV;
 
     // Content URI represents the base location for the table
     public static final Uri CONTENT_URI =

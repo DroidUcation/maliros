@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/base_style"
+    style="@style/add_update_card_style"
     tools:context=".activities.AddCardActivity"
     android:focusableInTouchMode="true"
     android:clickable="true">

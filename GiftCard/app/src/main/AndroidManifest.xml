@@ -35,7 +35,9 @@
         </activity>
         <activity
             android:name=".activities.SearchCardsActivity"
-            android:parentActivityName=".activities.DisplayCardsActivity">
+            android:parentActivityName=".activities.DisplayCardsActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"
+            android:label="Search Card By Store">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.DisplayCardsActivity" />
@@ -43,7 +45,8 @@
 
         <activity android:name=".activities.SearchCardsResultActivity"
             android:parentActivityName=".activities.SearchCardsActivity"
-            android:windowSoftInputMode="stateAlwaysVisible">
+            android:windowSoftInputMode="stateHidden"
+            android:label="Matching Cards">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.SearchCardsActivity" />

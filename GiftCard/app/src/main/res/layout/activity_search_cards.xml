@@ -25,6 +25,8 @@
         android:imeOptions="actionDone"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:hint="Store Name"
+        android:textColorHint="@color/line_grey"
         >
     </AutoCompleteTextView>
 

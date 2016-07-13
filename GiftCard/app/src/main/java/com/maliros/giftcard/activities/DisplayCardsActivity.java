@@ -33,7 +33,7 @@ public class DisplayCardsActivity extends BaseActivity {
         setContentView(R.layout.activity_display_cards);
         setTitle(null);
         btnOpenPopup = (Button) findViewById(R.id.btn_update_balance);
-        lLayout = new GridLayoutManager(DisplayCardsActivity.this, 2);
+        lLayout = new GridLayoutManager(DisplayCardsActivity.this, 1);
 
         // 1. get a reference to recyclerView
         RecyclerView rView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -62,20 +62,25 @@ public class GiftCardProvider extends ContentProvider {
         return (sqLiteDatabase != null);
     }
 
-    private static Map<String,String> buildStoreCardProjMap() {
+    private static Map<String, String> buildStoreCardProjMap() {
         Map<String, String> projectionsMap = new HashMap<>();
+        projectionsMap.put(CardEntry._ID, CardEntry.FULL_ID_ALIAS);
         projectionsMap.put(StoreEntry.NAME, StoreEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
+        projectionsMap.put(CardEntry.CARD_NUMBER, CardEntry.FULL_CARD_NUMBER_ALIAS);
+        projectionsMap.put(CardEntry.CVV, CardEntry.FULL_CVV_ALIAS);
         return projectionsMap;
     }
 
-    private static Map<String,String> buildCardAndCardTypeProjMap() {
+    private static Map<String, String> buildCardAndCardTypeProjMap() {
         Map<String, String> projectionsMap = new HashMap<>();
         projectionsMap.put(CardTypeEntry.NAME, CardTypeEntry.FULL_NAME_ALIAS);
         projectionsMap.put(CardEntry.BALANCE, CardEntry.FULL_BALANCE_ALIAS);
         projectionsMap.put(CardTypeEntry.IMAGE, CardTypeEntry.FULL_IMAGE_ALIAS);
         projectionsMap.put(CardEntry._ID, CardEntry.FULL_ID_ALIAS);
+        projectionsMap.put(CardEntry.CARD_NUMBER, CardEntry.FULL_CARD_NUMBER_ALIAS);
+        projectionsMap.put(CardEntry.CVV, CardEntry.FULL_CVV_ALIAS);
         return projectionsMap;
     }
 
@@ -142,7 +147,7 @@ public class GiftCardProvider extends ContentProvider {
                 sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL);
                 break;
             case CARD_STORE_AND_CARD_TYPE: // join card, cardType, store and cardTypeStore tables
-                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
+                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
                         + " ON c." + CardEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID
                         + " INNER JOIN " + StoreCardTypeEntry.STORE_CARD_TYPE_TBL + " as sct"
                         + " ON sct." + StoreCardTypeEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID
@@ -151,7 +156,7 @@ public class GiftCardProvider extends ContentProvider {
                 sqLiteQueryBuilder.setProjectionMap(storeNameCardProjectionsMap);
                 break;
             case CARD_AND_CARD_TYPE:
-                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL  + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
+                sqLiteQueryBuilder.setTables(CardEntry.CARD_TBL + " as c INNER JOIN " + CardTypeEntry.CARD_TYPE_TBL + " as ct"
                         + " ON c." + CardEntry.CARD_TYPE_ID + " = ct." + CardTypeEntry._ID);
                 sqLiteQueryBuilder.setProjectionMap(CardAndCardTypeProjMap);
                 break;
