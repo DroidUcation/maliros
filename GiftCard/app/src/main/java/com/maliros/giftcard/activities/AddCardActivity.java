@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,7 +19,9 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -59,8 +62,6 @@ import butterknife.ButterKnife;
 
 public class AddCardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String EXTRA_TRANSITION = "EXTRA_TRANSITION";
-    public static final String TRANSITION_FADE_FAST = "FADE_FAST";
     private int typeIndex = 1;
     private String typeAppend = "";
     private static final int SELECT_PICTURE = 0;
@@ -127,7 +128,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private View.OnFocusChangeListener getFocusChangeListener(){
+    private View.OnFocusChangeListener getFocusChangeListener() {
         return new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -151,7 +152,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                     expirationDatePickerDialog.show();
                 } else if (!hasFocus) {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_HIDDEN, 0);
                 }
             }
         });
@@ -162,7 +163,7 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 expirationDatePickerDialog.show();
                 if (!expirationDateET.hasFocus()) {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_HIDDEN, 0);
                 }
             }
         });
@@ -189,7 +190,17 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setCardTypesSpinner() {
-        Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+        final Spinner typesSpinner = (Spinner) findViewById(R.id.type_spinner);
+        typesSpinner.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(this.getWindowToken(), 0);
+                return false;
+            }
+        });
+
         String selection = null;
         String[] selectionArgs = null;
         // init values in update mode- retrieve only this card type
@@ -238,13 +249,10 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void updateBalanceCard(View view) {
-        LayoutInflater layoutInflater =
-                (LayoutInflater) getBaseContext()
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = layoutInflater.inflate(R.layout.popup, null);
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-
+        final PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
         Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
         Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
 
@@ -254,43 +262,24 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
                 popupWindow.dismiss();
             }
         });
-
         btnSave.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Log.d("Iwm here", "whats up");
-                popupWindow.dismiss();
-
-                Log.d("Iwm here", "whats up");
                 // balance
                 balance1 = (EditText) popupView.findViewById(R.id.et_count_used);
                 // Defines an object to contain the updated values
-                ContentValues mUpdateValues = new ContentValues();
-                // Defines selection criteria for the rows you want to update
-                String mSelectionClause = CardEntry._ID + " = ?";
-                String[] mSelectionArgs = {getIntent().getExtras().getString(CardEntry._ID)};//card id
-                Log.d("**", mSelectionArgs.toString());
-                // Defines a variable to contain the number of updated rows
-                int mRowsUpdated = 0;
-                /*
-                 * Sets the updated value and updates the selected words.
-                 */
-                mUpdateValues.putNull(CardEntry.BALANCE);
-                mUpdateValues.put(CardEntry.BALANCE, Double.parseDouble(balance1.getText().toString()));
-                mRowsUpdated = getContentResolver().update(
-                        CardEntry.CONTENT_URI,               // the user dictionary content URI
-                        mUpdateValues,                     // the columns to update
-                        mSelectionClause,                   // the column to select on
-                        mSelectionArgs                      // the value to compare to
-                );
-
-                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
-                startActivity(intent);
+                Double balanceDiff = (Double.valueOf(balance.getText().toString())) - (Double.valueOf(balance1.getText().toString()));
+                if (balanceDiff < 0) {
+                    balance1.setError("Balance can not be less than 0");
+                } else {
+                    balance.setText(balanceDiff.toString());
+                    popupWindow.dismiss();
+                }
             }
         });
-        popupWindow.showAsDropDown(btnOpenPopup, 250, 500);
 
+        popupWindow.showAtLocation(this.findViewById(R.id.main_add_rel_layout), Gravity.CENTER, 0, 0);
     }
 
     public void pickPhoto(View view) {
@@ -414,7 +403,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             // handle exception here
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -456,34 +444,58 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean validateRequiredFields() {
         boolean isValid = true;
-        // balance
-        if (balance.getText() == null || balance.getText().toString().trim().equals("")) {
-            balance.setError("Balance is required!");
-            isValid = false;
-        } else if ("0".equals(balance.getText())) {
-            balance.setError("Balance has to be greater than 0!");
-            isValid = false;
-        }
+
         // expiration date
         if (expirationDateET.getText() == null || expirationDateET.getText().toString().trim().equals("")) {
             expirationDateET.setError("Expiration date is required!");
             isValid = false;
+        } else if (getDateFromDatePicker(expirationDatePickerDialog.getDatePicker()).compareTo(new Date()) < 0) {
+            expirationDateET.setError("Expiration date has to be greater than today!");
         }
-        // card number
-        if (cardNumber.getText() == null || cardNumber.getText().toString().trim().equals("")) {
-            cardNumber.setError("Card Number is required!");
+
+        // balance
+        if (balance.getText() == null || balance.getText().toString().trim().equals("")) {
+            balance.setError("Balance is required!");
             isValid = false;
-        } else if ("0".equals(cardNumber.getText())) {
-            cardNumber.setError("Card Number has to be greater than 0!");
+        } else if (isCreateMode && "0".equals(balance.getText())) {
+            balance.setError("Balance has to be greater than 0!");
             isValid = false;
         }
-        // cvv
-        if (cvv.getText() == null || cvv.getText().toString().trim().equals("")) {
-            cvv.setError("Card Verification Valid is required!");
-            isValid = false;
-        } else if ("0".equals(cvv.getText())) {
-            cvv.setError("Card Verification Valid has to be greater than 0!");
-            isValid = false;
+
+        if (isCreateMode) {
+            // card number
+            if (cardNumber.getText() == null || cardNumber.getText().toString().trim().equals("")) {
+                cardNumber.setError("Card Number is required!");
+                isValid = false;
+            } else if ("0".equals(cardNumber.getText())) {
+                cardNumber.setError("Card Number has to be greater than 0!");
+                isValid = false;
+            }
+            // cvv
+            if (cvv.getText() == null || cvv.getText().toString().trim().equals("")) {
+                cvv.setError("Card Verification Valid is required!");
+                isValid = false;
+            } else if ("0".equals(cvv.getText())) {
+                cvv.setError("Card Verification Valid has to be greater than 0!");
+                isValid = false;
+            } else if (cvv.getText().length() > 3) {
+                cvv.setError("Card Verification Valid is limited to 3 chars!");
+                isValid = false;
+            }
+
+            if (isValid) {
+                // check cardNumber & cvv uniqueness
+                String selection = CardEntry.CARD_NUMBER + " = ? or " + CardEntry.CVV + " = ?";
+                String[] selectionArgs = {cardNumber.getText().toString(), cvv.getText().toString()};
+                Cursor cursor = getContentResolver().query(CardEntry.CONTENT_URI, null, selection, selectionArgs, null);
+                if (cursor.moveToFirst()) {
+                    isValid = false;
+                    if (cardNumber.getText().toString().equalsIgnoreCase(cursor.getString(cursor.getColumnIndex(CardEntry.CARD_NUMBER))))
+                        cardNumber.setError("Card Number already exists!");
+                    if (cvv.getText().toString().equalsIgnoreCase(cursor.getString(cursor.getColumnIndex(CardEntry.CVV))))
+                        cvv.setError("Cvv already exists!");
+                }
+            }
         }
 
         return isValid;

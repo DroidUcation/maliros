@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/base_style">
-
+    style="@style/base_style"
+    android:background="@color/line_grey">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_count"
-            style="@style/linearLayout_ct2"
-            android:text="Count used" />
-
         <EditText
             android:id="@+id/et_count_used"
-            style="@style/linearLayout_ct2"
-            android:gravity="right"
-            android:inputType="number"
-            android:hint="Money Used"/>
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Money Used"
+             />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_count_used" >
-
-
+        android:layout_alignBottom="@+id/et_count_used">
 
         <Button
             android:id="@+id/btn_cancel"
             style="@style/linearLayout_ct2"
-            android:textSize="15dp"
+            android:onClick="updateBalanceCard"
             android:text="@string/cancel"
-            android:onClick="updateBalanceCard"/>
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/btn_save"
             style="@style/linearLayout_ct2"
-            android:textSize="15dp"
             android:onClick="addCard"
-            android:text="@string/btn_save" />
+            android:text="@string/btn_save"
+            android:textSize="15dp" />
     </LinearLayout>
 
 </LinearLayout>

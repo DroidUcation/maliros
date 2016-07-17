@@ -5,7 +5,7 @@
     <string name="prev">prev</string>
     <string name="country_name">card_name</string>
     <string name="photo_card">photo card</string>
-    <string name="my_cards">My Cards</string>
+    <string name="gift_cared">GiftCared</string>
     <string name="expiration_date">Expiration Date*</string>
     <string name="count">Count*</string>
     <string name="add_card">Add Card</string>

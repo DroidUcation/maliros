@@ -31,8 +31,14 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
                 .append(cursor.getString(cursor.getColumnIndex(CardEntry.CVV)));
         viewHolder.numberCvvTxtView.setText(numberAndCvv);
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
-        viewHolder.balanceTxtView.setText(cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE)) + "$");
+        String balance = cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE));
+        viewHolder.balanceTxtView.setText(balance + "$");
         viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
+        if(balance.equalsIgnoreCase("0")){
+            viewHolder.deleteButton.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.deleteButton.setVisibility(View.INVISIBLE);
+        }
         Picasso.with(mContext)
                 .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
                 .into(viewHolder.cardTypeImage);

@@ -1,6 +1,7 @@
 package com.maliros.giftcard.adapters.viewholders;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ public class CardDisplayViewHolder extends RecyclerView.ViewHolder implements Vi
     public TextView numberCvvTxtView;
     public TextView balanceTxtView;
     public ImageView cardTypeImage;
+    public FloatingActionButton deleteButton;
     public int cardId;
 
     public CardDisplayViewHolder(View itemView) {
@@ -26,6 +28,7 @@ public class CardDisplayViewHolder extends RecyclerView.ViewHolder implements Vi
         numberCvvTxtView = (TextView) itemView.findViewById(R.id.card_number_cvv);
         balanceTxtView = (TextView) itemView.findViewById(R.id.balance);
         cardTypeImage = (ImageView) itemView.findViewById(R.id.photo);
+        deleteButton = (FloatingActionButton) itemView.findViewById(R.id.delete_card_btn);
         itemView.setOnClickListener(this);
     }
 

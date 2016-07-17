@@ -33,7 +33,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
             StoreEntry.IS_CHAIN_STORE + " SMALLINT )";
 
     private static final String SQL_CREATE_CARD_TYPE_TBL = "CREATE TABLE " + CardTypeEntry.CARD_TYPE_TBL + " ( " +
-            CardTypeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CardTypeEntry._ID + " INTEGER PRIMARY KEY, " +
             CardTypeEntry.NAME + " TEXT," +
             CardTypeEntry.IMAGE + " INTEGER," +
             CardTypeEntry.FOR_SPECIFIC_STORE + " SMALLINT )";
@@ -135,6 +135,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
     private void insertCardTypesData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put(CardTypeEntry.NAME, "Dream Card");
+        values.put(CardTypeEntry._ID, 1);
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 0);
         values.put(CardTypeEntry.IMAGE, R.drawable.dream_card);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
@@ -142,6 +143,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         // another row
         values.clear();
         values.put(CardTypeEntry.NAME, "Gift Card- Isracard");
+        values.put(CardTypeEntry._ID, 2);
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
         values.put(CardTypeEntry.IMAGE, R.drawable.giftcard1);
@@ -150,6 +152,7 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
         // another row
         values.clear();
         values.put(CardTypeEntry.NAME, "Tav Hazav");
+        values.put(CardTypeEntry._ID, 3);
         values.put(CardTypeEntry.FOR_SPECIFIC_STORE, 1);
         values.put(CardTypeEntry.IMAGE, R.drawable.tavhazav);
         db.insert(CardTypeEntry.CARD_TYPE_TBL, null, values);
@@ -182,10 +185,10 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertCardsData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(CardEntry.CARD_TYPE_ID, 1);
+        values.put(CardEntry.CARD_TYPE_ID, 2);
 //        values.put(CardEntry._ID, 1);
         values.put(CardEntry.IS_FOR_UNIQUE_STORE, 1);
-        values.put(CardEntry.UNIQUE_STORE_NAME, "ZERZ");
+        values.put(CardEntry.UNIQUE_STORE_NAME, "ZEBRA");
         values.put(CardEntry.BALANCE, 320);
         values.put(CardEntry.EXPIRATION_DATE, DateUtil.DATE_FORMAT_YYYYMMDDHHMMSS.format(new Date()));
         values.put(CardEntry.USER_ID, 1);

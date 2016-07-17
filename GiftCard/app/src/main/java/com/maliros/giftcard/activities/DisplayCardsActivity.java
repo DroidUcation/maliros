@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,7 +36,15 @@ public class DisplayCardsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_cards);
-        setTitle(null);
+//        Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/mytruetypefont.ttf");
+//        myTextView.setTypeface(typeFace);
+
+        SpannableString s = new SpannableString("My Cards");
+        s.setSpan(new TypefaceSpan("fonts/Bombing.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        setTitle(R.string.gift_cared);
+
         btnOpenPopup = (Button) findViewById(R.id.btn_update_balance);
         int columnsNumber = 1;
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

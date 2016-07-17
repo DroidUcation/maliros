@@ -1,110 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/add_update_card_style"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".activities.AddCardActivity"
-    android:focusableInTouchMode="true"
-    android:clickable="true">
+    android:fillViewport="true">
 
-    <Spinner
-        android:id="@+id/type_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        android:layout_marginTop="48dp"
-        style="@style/spinner_style"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/add_update_card_style"
+        tools:context=".activities.AddCardActivity"
+        android:id="@+id/main_add_rel_layout"
+        android:clickable="true"
+        android:isScrollContainer="true"
+        android:focusableInTouchMode="true"
+        >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/card_number_hint"
-        android:inputType="number"
-        android:layout_margin="8dp"
-        android:id="@+id/edt_card_number"
-        android:layout_below="@+id/type_spinner"
-        android:imeOptions="actionDone"
-        />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/cvv_hint"
-        android:inputType="number"
-        android:layout_margin="8dp"
-        android:id="@+id/edt_cvv"
-        android:layout_below="@+id/edt_card_number"
-        android:imeOptions="actionDone"
-        />
+        <Spinner
+            android:id="@+id/type_spinner"
+            style="@style/spinner_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:spinnerMode="dropdown"
+            android:descendantFocusability="blocksDescendants"
+            android:clickable="false"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/count"
-        android:inputType="number"
-        android:layout_margin="8dp"
-        android:id="@+id/edt_view_balance"
-        android:layout_below="@+id/edt_cvv"
-        android:imeOptions="actionDone"
-        />
+        <EditText
+            android:id="@+id/edt_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/type_spinner"
+            android:layout_margin="8dp"
+            android:hint="@string/card_number_hint"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/expiration_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/expiration_date"
-        android:layout_margin="8dp"
-        android:descendantFocusability="blocksDescendants"
-        android:layout_below="@+id/edt_view_balance"
-        />
+        <EditText
+            android:id="@+id/edt_cvv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_card_number"
+            android:layout_margin="8dp"
+            android:hint="@string/cvv_hint"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
 
-    <Button
-        android:id="@+id/btn_update_balance"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:textSize="15dp"
-        android:layout_marginRight="10dp"
-        android:onClick="updateBalanceCard"
-        android:layout_below="@+id/edt_cvv"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/edit_icon"/>
+        <EditText
+            android:id="@+id/edt_view_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_cvv"
+            android:layout_margin="8dp"
+            android:hint="@string/count"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
 
-    <!--<TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select a picture and upload"
-        android:layout_margin="8dp"
-        />
+        <EditText
+            android:id="@+id/expiration_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_view_balance"
+            android:layout_margin="8dp"
+            android:descendantFocusability="blocksDescendants"
+            android:hint="@string/expiration_date"
+            android:inputType="none" />
 
-    <ImageView
-        android:id="@android:id/icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        <Button
+            android:id="@+id/btn_update_balance"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edt_cvv"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/edit_icon"
+            android:onClick="updateBalanceCard"
+            android:textSize="15dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="pickPhoto"
-        android:text="Select a photo" />
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a picture and upload"
+            android:layout_margin="8dp"
+            />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="uploadPhoto"
-        android:text="Upload photo" />-->
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="updateOrAddCard"
-        android:id="@+id/add_card_btn"
-        android:layout_alignParentBottom="true"
-        android:text="Add"
-        android:textSize="20sp"
-        android:background="#EF5350"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pickPhoto"
+            android:text="Select a photo" />
 
-    <android.support.v4.widget.NestedScrollView style="@style/n_scroll_view">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="uploadPhoto"
+            android:text="Upload photo" />-->
 
-    </android.support.v4.widget.NestedScrollView>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/add_card_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#EF5350"
+            android:onClick="updateOrAddCard"
+            android:text="Add"
+            android:textSize="20sp" />
+
+        <!--     <android.support.v4.widget.NestedScrollView style="@style/n_scroll_view">
+
+             </android.support.v4.widget.NestedScrollView>-->
+
+    </RelativeLayout>
+</ScrollView>
