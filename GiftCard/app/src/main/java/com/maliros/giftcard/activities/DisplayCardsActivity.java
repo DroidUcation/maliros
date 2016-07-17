@@ -1,6 +1,5 @@
 package com.maliros.giftcard.activities;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -10,14 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 
 import com.maliros.giftcard.R;
 import com.maliros.giftcard.adapters.CardDisplayAdapter;
@@ -93,57 +89,4 @@ public class DisplayCardsActivity extends BaseActivity {
         intent.putExtra(CardEntry._ID, -1);
         startActivity(intent);
     }
-
-    public void updateBalanceCard(View view) {
-        LayoutInflater layoutInflater =
-                (LayoutInflater) getBaseContext()
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.popup, null);
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-        Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
-        Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
-       /* Spinner popupSpinner = (Spinner) popupView.findViewById(R.id.popupspinner);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(DisplayCardsActivity.this,
-                        android.R.layout.simple_spinner_item, Company);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        popupSpinner.setAdapter(adapter);
-        popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                typeIndex = position + 1;
-                typeAppend = parent.getItemAtPosition(position).toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-            }
-        });*/
-        btnDismiss.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
-        popupWindow.showAsDropDown(btnOpenPopup, 250, 500);
-        btnSave.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                popupWindow.dismiss();
-                Intent intent = new Intent(v.getContext(), AddCardActivity.class);
-                intent.putExtra(CardEntry.CARD_TYPE_ID, id);
-                Log.d("Display**", CardEntry.CARD_TYPE_ID);
-                startActivity(intent);
-
-            }
-        });
-
-    }
-
 }

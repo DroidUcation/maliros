@@ -1,11 +1,12 @@
 package com.maliros.giftcard.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,7 +20,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +29,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
@@ -67,7 +66,6 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
     private boolean isCreateMode = true;
-    private EditText balance1;
     private Button btnOpenPopup;
     private int cardId;
     private Cursor cardCursor;
@@ -150,10 +148,10 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     expirationDatePickerDialog.show();
-                } else if (!hasFocus) {
+                }/* else if (!hasFocus) {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_HIDDEN, 0);
-                }
+                }*/
             }
         });
 
@@ -161,10 +159,10 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 expirationDatePickerDialog.show();
-                if (!expirationDateET.hasFocus()) {
+             /*   if (!expirationDateET.hasFocus()) {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     inputMethodManager.toggleSoftInput(InputMethodManager.RESULT_HIDDEN, 0);
-                }
+                }*/
             }
         });
 
@@ -248,38 +246,36 @@ public class AddCardActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void updateBalanceCard(View view) {
-        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = layoutInflater.inflate(R.layout.popup, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
-        Button btnSave = (Button) popupView.findViewById(R.id.btn_save);
-        Button btnDismiss = (Button) popupView.findViewById(R.id.btn_cancel);
+    public void showInputDialog(View view) {
+        LayoutInflater layoutInflater = LayoutInflater.from(AddCardActivity.this);
+        View promptView = layoutInflater.inflate(R.layout.popup, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddCardActivity.this)
+                .setTitle("Update Balance");
+        alertDialogBuilder.setView(promptView);
+        final EditText countUsed = (EditText) promptView.findViewById(R.id.et_count_used);
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Defines an object to contain the updated values
+                        Double balanceDiff = (Double.valueOf(balance.getText().toString())) - (Double.valueOf(countUsed.getText().toString()));
+                        Log.d("diff", balanceDiff.toString());
+                        if (balanceDiff < 0) {
+                            balance.setError("Balance can not be less than 0");
+                        } else {
+                            balance.setText(balanceDiff.toString());
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
-        btnDismiss.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
-        btnSave.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // balance
-                balance1 = (EditText) popupView.findViewById(R.id.et_count_used);
-                // Defines an object to contain the updated values
-                Double balanceDiff = (Double.valueOf(balance.getText().toString())) - (Double.valueOf(balance1.getText().toString()));
-                if (balanceDiff < 0) {
-                    balance1.setError("Balance can not be less than 0");
-                } else {
-                    balance.setText(balanceDiff.toString());
-                    popupWindow.dismiss();
-                }
-            }
-        });
-
-        popupWindow.showAtLocation(this.findViewById(R.id.main_add_rel_layout), Gravity.CENTER, 0, 0);
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
     public void pickPhoto(View view) {

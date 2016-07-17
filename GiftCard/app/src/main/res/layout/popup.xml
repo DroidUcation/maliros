@@ -1,39 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/base_style"
-    android:background="@color/line_grey">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/et_count_used"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Money Used"
-             />
-    </LinearLayout>
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/et_count_used"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_count_used">
-
-        <Button
-            android:id="@+id/btn_cancel"
-            style="@style/linearLayout_ct2"
-            android:onClick="updateBalanceCard"
-            android:text="@string/cancel"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/btn_save"
-            style="@style/linearLayout_ct2"
-            android:onClick="addCard"
-            android:text="@string/btn_save"
-            android:textSize="15dp" />
-    </LinearLayout>
+        android:hint="Money Used"
+        android:inputType="number"
+        android:padding="10dp"/>
 
 </LinearLayout>

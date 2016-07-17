@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".activities.AddCardActivity"
-            android:parentActivityName=".activities.DisplayCardsActivity">
+            android:parentActivityName=".activities.DisplayCardsActivity"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activities.DisplayCardsActivity" />

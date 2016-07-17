@@ -15,6 +15,7 @@
         android:clickable="true"
         android:isScrollContainer="true"
         android:focusableInTouchMode="true"
+        android:fitsSystemWindows="true"
         >
 
 
@@ -76,7 +77,7 @@
             android:layout_below="@+id/edt_cvv"
             android:layout_marginRight="10dp"
             android:background="@drawable/edit_icon"
-            android:onClick="updateBalanceCard"
+            android:onClick="showInputDialog"
             android:textSize="15dp" />
 
         <!--<TextView

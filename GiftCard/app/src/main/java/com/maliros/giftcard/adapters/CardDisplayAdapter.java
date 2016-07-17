@@ -1,6 +1,9 @@
 package com.maliros.giftcard.adapters;
 
+import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,30 +22,60 @@ import com.squareup.picasso.Picasso;
  */
 public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayViewHolder> {
 
+    private Context context;
+
     public CardDisplayAdapter(Context context, Cursor cursor) {
         super(context, cursor);
+        this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(CardDisplayViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(final CardDisplayViewHolder viewHolder, Cursor cursor) {
 
-        StringBuilder numberAndCvv = new StringBuilder(cursor.getString(cursor.getColumnIndex(CardEntry.CARD_NUMBER)))
+        final StringBuilder numberAndCvv = new StringBuilder(cursor.getString(cursor.getColumnIndex(CardEntry.CARD_NUMBER)))
                 .append(" / ")
                 .append(cursor.getString(cursor.getColumnIndex(CardEntry.CVV)));
         viewHolder.numberCvvTxtView.setText(numberAndCvv);
         viewHolder.nameTxtView.setText(cursor.getString(cursor.getColumnIndex(CardTypeEntry.NAME)));
         String balance = cursor.getString(cursor.getColumnIndex(CardEntry.BALANCE));
         viewHolder.balanceTxtView.setText(balance + "$");
-        viewHolder.cardId = cursor.getInt(cursor.getColumnIndex(CardEntry._ID));
-        if(balance.equalsIgnoreCase("0")){
+        final int cardId = cursor.getColumnIndex(CardEntry._ID);
+        viewHolder.cardId = cursor.getInt(cardId);
+        if (balance.equalsIgnoreCase("0")) {
             viewHolder.deleteButton.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             viewHolder.deleteButton.setVisibility(View.INVISIBLE);
         }
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addYesNoDeleteDialog(cardId);
+            }
+        });
         Picasso.with(mContext)
                 .load(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)))
                 .into(viewHolder.cardTypeImage);
 //        viewHolder.cardTypeImage.setImageResource(cursor.getInt(cursor.getColumnIndex(CardTypeEntry.IMAGE)));
+    }
+
+    private void addYesNoDeleteDialog(final int cardId) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+                .setMessage("Are you sure You want to delete this card?")
+                .setTitle("Delete Card");
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        context.getContentResolver().delete(ContentUris.withAppendedId(CardEntry.CONTENT_URI, cardId), null, null);
+                        notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
     @Override
@@ -55,7 +88,6 @@ public class CardDisplayAdapter extends CursorRecyclerViewAdapter<CardDisplayVie
         CardDisplayViewHolder viewHolder = new CardDisplayViewHolder(itemLayoutView);
         return viewHolder;
     }
-
 }
 
 
