@@ -120,19 +120,32 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertStoresData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(StoreEntry.NAME, "ZARA");
-        values.put(StoreEntry.IS_CHAIN_STORE, 1);
-        // insert row
-        db.insert(StoreEntry.STORE_TBL, null, values);
+        // 13 stores
+        insertStore(db, values, "Zara");
+        insertStore(db, values, "Fox");
+        insertStore(db, values, "Golf");
+        insertStore(db, values, "Castro");
+        insertStore(db, values, "Mango");
+        insertStore(db, values, "Naaman");
+        insertStore(db, values, "Renuar");
+        insertStore(db, values, "Kravits");
+        insertStore(db, values, "Fly Foot");
+        insertStore(db, values, "Nine West");
+        insertStore(db, values, "Greg Cafe");
+        insertStore(db, values, "Laline");
+        insertStore(db, values, "Magnolia");
+    }
 
+    private void insertStore(SQLiteDatabase db, ContentValues values, String storeName) {
         values.clear();
-        values.put(StoreEntry.NAME, "FOX");
+        values.put(StoreEntry.NAME, storeName);
         values.put(StoreEntry.IS_CHAIN_STORE, 1);
         // insert row
         db.insert(StoreEntry.STORE_TBL, null, values);
     }
 
     private void insertCardTypesData(SQLiteDatabase db) {
+        // 5 card types
         ContentValues values = new ContentValues();
         values.put(CardTypeEntry.NAME, "Dream Card");
         values.put(CardTypeEntry._ID, 1);
@@ -176,26 +189,35 @@ public class GCDatabaseHelper extends SQLiteOpenHelper {
 
     private void insertStoresCardTypesData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(StoreCardTypeEntry.STORE_ID, 1);
-        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 1);
-        // insert row
-        db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
+        insertStoreCardType(db, values, 2, 3);
+        insertStoreCardType(db, values, 2, 5);
+        insertStoreCardType(db, values, 1, 4);
+        insertStoreCardType(db, values, 3, 4);
+        insertStoreCardType(db, values, 3, 10);
+        insertStoreCardType(db, values, 3, 12);
+        insertStoreCardType(db, values, 4, 6);
+        insertStoreCardType(db, values, 4, 2);
+        insertStoreCardType(db, values, 5, 7);
+        insertStoreCardType(db, values, 5, 9);
+        insertStoreCardType(db, values, 3, 4);
+        insertStoreCardType(db, values, 5, 2);
+        insertStoreCardType(db, values, 2, 13);
+        insertStoreCardType(db, values, 3, 13);
+        insertStoreCardType(db, values, 1, 6);
+        insertStoreCardType(db, values, 4, 8);
+        insertStoreCardType(db, values, 1, 12);
+        insertStoreCardType(db, values, 2, 10);
+        insertStoreCardType(db, values, 3, 8);
+        insertStoreCardType(db, values, 4, 10);
+        insertStoreCardType(db, values, 2, 9);
+        insertStoreCardType(db, values, 3, 2);
+        insertStoreCardType(db, values, 5, 11);
+    }
 
+    private void insertStoreCardType(SQLiteDatabase db, ContentValues values, int storeId, int cardTypeId) {
         values.clear();
-        values.put(StoreCardTypeEntry.STORE_ID, 2);
-        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 3);
-        // insert row
-        db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
-
-        values.clear();
-        values.put(StoreCardTypeEntry.STORE_ID, 2);
-        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 5);
-        // insert row
-        db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
-
-        values.clear();
-        values.put(StoreCardTypeEntry.STORE_ID, 1);
-        values.put(StoreCardTypeEntry.CARD_TYPE_ID, 4);
+        values.put(StoreCardTypeEntry.STORE_ID, storeId);
+        values.put(StoreCardTypeEntry.CARD_TYPE_ID, cardTypeId);
         // insert row
         db.insert(StoreCardTypeEntry.STORE_CARD_TYPE_TBL, null, values);
     }
