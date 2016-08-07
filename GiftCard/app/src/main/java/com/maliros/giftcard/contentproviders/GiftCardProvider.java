@@ -235,6 +235,15 @@ public class GiftCardProvider extends ContentProvider {
         final SQLiteDatabase db = gcDbHelper.getWritableDatabase();
         int rows; // Number of rows effected
         String tableName = getTableName(uri);
+        long _id;
+        switch (sUriMatcher.match(uri)) {
+            case CARD_ID:
+                Log.d("in ", uri.toString());
+                _id = ContentUris.parseId(uri);
+                selection = CardEntry._ID + " = ?";
+                selectionArgs = new String[]{String.valueOf(_id)};
+                break;
+        }
         rows = db.delete(tableName, selection, selectionArgs);
 
         // Because null could delete all rows:
